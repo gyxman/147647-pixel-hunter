@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Роман Алексютин](https://up.htmlacademy.ru/ecmascript/6/user/147647).
-* Наставник: `Неизвестно`.
+* Наставник: `Николай Яшин`(https://htmlacademy.ru/profile/id213763).
 
 ---
 
