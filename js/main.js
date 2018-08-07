@@ -1,4 +1,4 @@
-'use strict'; // без use strict webstorm ругается на первый const
+'use strict';
 
 const arrTemplates = [];
 const templates = document.querySelectorAll(`template`);
