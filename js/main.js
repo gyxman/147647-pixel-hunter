@@ -25,20 +25,25 @@ arrowsElement.innerHTML = `
 `;
 document.body.appendChild(arrowsElement);
 
-// массив порядка экранов
-const orderScreens = [1, 2, 3];
+const orderScreens = [1, 2, 3, 4, 5]; // массив порядка экранов
 const ARROW_RIGHT_CODE = 39;
 const ARROW_LEFT_CODE = 37;
 const arrowRight = document.querySelectorAll(`.arrows__btn`)[1];
 const arrowLeft = document.querySelectorAll(`.arrows__btn`)[0];
 
-let currentWindow = 0; // будем хранить текущий активный экран - пока взять не откуда его
+let currentWindow = 0; // будем хранить текущий активный экран - пока взять негде его
 
 const nextWindow = ()=> {
+  if (currentWindow === orderScreens.length - 1) {
+    return;
+  }
   currentWindow++;
   changeWindow(currentWindow);
 };
 const prevWindow = ()=> {
+  if (currentWindow === 0) {
+    return;
+  }
   currentWindow--;
   changeWindow(currentWindow);
 };
@@ -50,8 +55,9 @@ for (let i = 0; i < templates.length; i++) {
 // функция смены окна
 const changeWindow = (index) => {
   let number = orderScreens[index];
+  let clone = document.importNode(arrTemplates[number].content, true);
   mainContent.innerHTML = ``;
-  mainContent.appendChild(arrTemplates[number].content);
+  mainContent.appendChild(clone);
 };
 changeWindow(currentWindow);
 
@@ -72,7 +78,3 @@ arrowRight.addEventListener(`click`, function () {
 arrowLeft.addEventListener(`click`, function () {
   prevWindow();
 });
-
-// TODO убрать
-const footer = document.querySelector(`.footer`);
-footer.setAttribute(`style`, `display:none;`);
