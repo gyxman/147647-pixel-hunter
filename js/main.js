@@ -1,6 +1,6 @@
 'use strict';
 
-const arrTemplates = [];
+const templatesArray = [];
 const templates = document.querySelectorAll(`template`);
 const mainContent = document.querySelector(`#main`);
 
@@ -25,37 +25,37 @@ arrowsElement.innerHTML = `
 `;
 document.body.appendChild(arrowsElement);
 
-const orderScreens = [1, 2, 3, 4, 5]; // массив порядка экранов
+const screensOrders = [1, 2, 3, 4, 5]; // массив порядка экранов
 const ARROW_RIGHT_CODE = 39;
 const ARROW_LEFT_CODE = 37;
-const arrowRight = document.querySelectorAll(`.arrows__btn`)[1];
-const arrowLeft = document.querySelectorAll(`.arrows__btn`)[0];
+const arrowRight = arrowsElement.querySelectorAll(`.arrows__btn`)[1];
+const arrowLeft = arrowsElement.querySelectorAll(`.arrows__btn`)[0];
 
 let currentWindow = 0; // будем хранить текущий активный экран - пока взять негде его
 
 const nextWindow = ()=> {
-  if (currentWindow === orderScreens.length - 1) {
+  if (currentWindow === screensOrders.length - 1) {
     return;
   }
-  currentWindow++;
+  currentWindow += 1;
   changeWindow(currentWindow);
 };
 const prevWindow = ()=> {
   if (currentWindow === 0) {
     return;
   }
-  currentWindow--;
+  currentWindow -= 1;
   changeWindow(currentWindow);
 };
 
 for (let i = 0; i < templates.length; i++) {
-  arrTemplates.push(templates[i]);
+  templatesArray.push(templates[i]);
 }
 
 // функция смены окна
 const changeWindow = (index) => {
-  let number = orderScreens[index];
-  let clone = document.importNode(arrTemplates[number].content, true);
+  let number = screensOrders[index];
+  let clone = templatesArray[number].content.cloneNode(true);
   mainContent.innerHTML = ``;
   mainContent.appendChild(clone);
 };
@@ -71,10 +71,10 @@ document.onkeydown = function (event) {
 };
 
 // обработка кликов по стрелкам
-arrowRight.addEventListener(`click`, function () {
+arrowRight.addEventListener(`click`, ()=> {
   nextWindow();
 });
 
-arrowLeft.addEventListener(`click`, function () {
+arrowLeft.addEventListener(`click`, ()=> {
   prevWindow();
 });
