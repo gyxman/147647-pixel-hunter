@@ -1,6 +1,5 @@
 'use strict';
 
-const templatesArray = [];
 const templates = document.querySelectorAll(`template`);
 const mainContent = document.querySelector(`#main`);
 
@@ -48,9 +47,11 @@ const prevWindow = ()=> {
   changeWindow(currentWindow);
 };
 
-for (let i = 0; i < templates.length; i++) {
-  templatesArray.push(templates[i]);
-}
+// for (let i = 0; i < templates.length; i++) {
+//   templatesArray.push(templates[i]);
+// }
+
+const templatesArray = [].map.call(templates, (item) => item);
 
 // функция смены окна
 const changeWindow = (index) => {
