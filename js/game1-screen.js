@@ -70,7 +70,7 @@ const backButton = game1Element.querySelector(`.back`);
 goHome(backButton);
 
 radioElements.forEach((element)=> {
-  element.addEventListener(`click`, ()=> {
+  element.addEventListener(`change`, ()=> {
     const selectedRadioElements = game1Element.querySelectorAll(`.visually-hidden:checked`);
     if (selectedRadioElements.length === variants.length) {
       changeScreen(game2Screen);
