@@ -1,5 +1,5 @@
 import introScreen from './intro-screen';
-import {changeScreen} from './until';
+import {changeScreen} from './util';
 
 export default (button)=> {
   button.addEventListener(`click`, ()=> {

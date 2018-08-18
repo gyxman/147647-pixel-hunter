@@ -1,4 +1,4 @@
-import {changeScreen, getElementFromTemplate} from './until';
+import {changeScreen, getElementFromTemplate} from './util';
 import game3Screen from './game3-screen';
 import goHome from './back-intro';
 

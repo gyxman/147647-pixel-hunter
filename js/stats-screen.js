@@ -1,4 +1,4 @@
-import {getElementFromTemplate} from './until';
+import {getElementFromTemplate} from './util';
 import goHome from './back-intro';
 
 const template = `
