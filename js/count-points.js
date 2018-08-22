@@ -6,10 +6,11 @@ const FAST_ANSWER_POINTS = 50;
 const SLOW_ANSWER_POINTS = -50;
 const LIFE_POINTS = 50;
 
-export const countPonts = (array, countLifes) => {
+export const countPonts = (array) => {
   let countCurrentAnswers = array.filter((elem) => elem.answer);
-  let countFastAnswers = array.filter((elem) => elem.time === `FAST`);
-  let countSlowAnswers = array.filter((elem) => elem.time === `SLOW`);
+  let countFastAnswers = array.filter((elem) => elem.time === `fast`);
+  let countSlowAnswers = array.filter((elem) => elem.time === `slow`);
+  let countLifes = LIFES_COUNT - array.filter((elem) => !elem.answer).length;
   if (array.length < QUESTION_COUNT) {
     return -1;
   } else if (countFastAnswers === 0 && countSlowAnswers === 0 && countLifes === LIFES_COUNT) {
