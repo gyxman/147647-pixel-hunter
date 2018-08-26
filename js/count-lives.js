@@ -1,6 +1,7 @@
-export const countLives = (lifesCount) => {
-  if (!lifesCount) {
+export const countLives = (lifes) => {
+  let numberLives = lifes.count;
+  if (!numberLives) {
     return -1;
   }
-  return (lifesCount -= 1);
+  return (numberLives -= 1);
 };

@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {countPonts} from '../count-points';
 import {countLives} from '../count-lives';
-import {timer} from '../timer';
+import {countTime} from '../count-time';
 import {changeScreen} from '../change-screen';
 
 // Заполним тестовые данные
@@ -46,31 +46,31 @@ describe(`Game`, () => {
 
   describe(`count lives`, () => {
     it(`should return -1 when 0 lifes`, () => {
-      assert.equal(countLives(0), -1);
+      assert.equal(countLives({count: 0}), -1);
     });
 
     it(`should return 2 when 3 lifes`, () => {
-      assert.equal(countLives(3), 2);
+      assert.equal(countLives({count: 3}), 2);
     });
   });
 
   describe(`timer`, () => {
     it(`should return -1 when 0 seconds`, () => {
-      assert.equal(timer(0), -1);
+      assert.equal(countTime({seconds: 0}), -1);
     });
 
     it(`should return 10 when 10 seconds`, () => {
-      assert.equal(timer(10), 10);
+      assert.equal(countTime({seconds: 10}), 10);
     });
   });
 
   describe(`change screen`, () => {
     it(`should return -1 when 11 screen`, () => {
-      assert.equal(changeScreen(11), -1);
+      assert.equal(changeScreen({newScreen: 11}), -1);
     });
 
     it(`should return 3 when 3 screen`, () => {
-      assert.equal(changeScreen(3), 3);
+      assert.equal(changeScreen({newScreen: 3}), 3);
     });
   });
 });
