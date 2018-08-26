@@ -1,7 +1,9 @@
-export const countTime = (time) => {
-  let numberSeconds = time.seconds;
-  if (!numberSeconds) {
+export const countTime = (game, remainingTime) => {
+  if (remainingTime < 0) {
     return -1;
   }
-  return numberSeconds;
+  const newGame = Object.assign({}, game, {
+    remainingTime,
+  });
+  return newGame.remainingTime;
 };

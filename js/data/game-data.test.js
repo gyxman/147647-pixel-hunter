@@ -3,6 +3,7 @@ import {countPonts} from '../count-points';
 import {countLives} from '../count-lives';
 import {countTime} from '../count-time';
 import {changeScreen} from '../change-screen';
+import {INITIAL_GAME} from '../start-data';
 
 // Заполним тестовые данные
 const arraySmall = Array(9).fill(0).map(() => ({answer: true, time: `normal`}));
@@ -24,53 +25,53 @@ arrayFast[1].time = `fast`;
 describe(`Game`, () => {
   describe(`count points`, () => {
     it(`should return -1 when less 10 answers`, () => {
-      assert.equal(countPonts(arraySmall), -1);
+      assert.equal(countPonts(INITIAL_GAME, arraySmall), -1);
     });
 
     it(`should return 1150 when 10 answers and 3 lifes`, () => {
-      assert.equal(countPonts(arrayNormal), 1150);
+      assert.equal(countPonts(INITIAL_GAME, arrayNormal), 1150);
     });
 
     it(`should return 1000 when 10 answers and 2 lifes`, () => {
-      assert.equal(countPonts(arrayNormal2Lives), 1000);
+      assert.equal(countPonts(INITIAL_GAME, arrayNormal2Lives), 1000);
     });
 
     it(`should return 1050 when 10 answers and 3 lifes and 2 slow time`, () => {
-      assert.equal(countPonts(arraySlow), 1050);
+      assert.equal(countPonts(INITIAL_GAME, arraySlow), 1050);
     });
 
     it(`should return 1250 when 10 answers and 3 lifes and 2 fast time`, () => {
-      assert.equal(countPonts(arrayFast), 1250);
+      assert.equal(countPonts(INITIAL_GAME, arrayFast), 1250);
     });
   });
 
   describe(`count lives`, () => {
     it(`should return -1 when 0 lifes`, () => {
-      assert.equal(countLives({count: 0}), -1);
+      assert.equal(countLives(INITIAL_GAME, -2), -1);
     });
 
     it(`should return 2 when 3 lifes`, () => {
-      assert.equal(countLives({count: 3}), 2);
+      assert.equal(countLives(INITIAL_GAME, 3), 3);
     });
   });
 
   describe(`timer`, () => {
     it(`should return -1 when 0 seconds`, () => {
-      assert.equal(countTime({seconds: 0}), -1);
+      assert.equal(countTime(INITIAL_GAME, -2), -1);
     });
 
     it(`should return 10 when 10 seconds`, () => {
-      assert.equal(countTime({seconds: 10}), 10);
+      assert.equal(countTime(INITIAL_GAME, 10), 10);
     });
   });
 
   describe(`change screen`, () => {
-    it(`should return -1 when 11 screen`, () => {
-      assert.equal(changeScreen({newScreen: 11}), -1);
+    it(`should return 3 when 3 screen`, () => {
+      assert.equal(changeScreen(INITIAL_GAME, 3), 3);
     });
 
-    it(`should return 3 when 3 screen`, () => {
-      assert.equal(changeScreen({newScreen: 3}), 3);
+    it(`should return 0 when -1 screen`, () => {
+      assert.equal(changeScreen(INITIAL_GAME, -1), 0);
     });
   });
 });

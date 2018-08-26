@@ -1,7 +1,9 @@
-export const countLives = (lifes) => {
-  let numberLives = lifes.count;
-  if (!numberLives) {
+export const countLives = (game, lives) => {
+  if (lives < 0) {
     return -1;
   }
-  return (numberLives -= 1);
+  const newGame = Object.assign({}, game, {
+    lives,
+  });
+  return newGame.lives;
 };
