@@ -46,32 +46,44 @@ describe(`Game`, () => {
   });
 
   describe(`count lives`, () => {
-    it(`should return -1 when 0 lifes`, () => {
-      assert.equal(countLives(INITIAL_GAME, -2), -1);
+    it(`should return 3 when 3 lifes`, () => {
+      assert.equal(countLives(INITIAL_GAME, 3).lives, 3);
     });
 
-    it(`should return 2 when 3 lifes`, () => {
-      assert.equal(countLives(INITIAL_GAME, 3), 3);
+    it(`should not allow set negative values`, () => {
+      assert.throws(() => countLives(INITIAL_GAME, -1).lives, `Lives should be negative value`);
+    });
+
+    it(`should not allow set non number value`, () => {
+      assert.throws(() => countLives(INITIAL_GAME, []).lives, `Lives should be of type number`);
     });
   });
 
   describe(`timer`, () => {
-    it(`should return -1 when 0 seconds`, () => {
-      assert.equal(countTime(INITIAL_GAME, -2), -1);
+    it(`should return 10 when 10 seconds`, () => {
+      assert.equal(countTime(INITIAL_GAME, 10).remainingTime, 10);
     });
 
-    it(`should return 10 when 10 seconds`, () => {
-      assert.equal(countTime(INITIAL_GAME, 10), 10);
+    it(`should not allow set negative values`, () => {
+      assert.throws(() => countTime(INITIAL_GAME, -1).remainingTime, `Time should be negative value`);
+    });
+
+    it(`should not allow set non number value`, () => {
+      assert.throws(() => countTime(INITIAL_GAME, []).remainingTime, `Time should be of type number`);
     });
   });
 
   describe(`change screen`, () => {
     it(`should return 3 when 3 screen`, () => {
-      assert.equal(changeScreen(INITIAL_GAME, 3), 3);
+      assert.equal(changeScreen(INITIAL_GAME, 3).screen, 3);
     });
 
-    it(`should return 0 when -1 screen`, () => {
-      assert.equal(changeScreen(INITIAL_GAME, -1), 0);
+    it(`should not allow set negative values`, () => {
+      assert.throws(() => changeScreen(INITIAL_GAME, -1).screen, `Screen should be negative value`);
+    });
+
+    it(`should not allow set non number value`, () => {
+      assert.throws(() => changeScreen(INITIAL_GAME, []).screen, `Screen should be of type number`);
     });
   });
 });
