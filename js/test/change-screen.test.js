@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {changeScreen} from '../screens/change-screen';
+import {changeScreen} from '../utils/change-screen';
 import {INITIAL_GAME} from '../data/initial-data';
 
 describe(`change screen`, () => {

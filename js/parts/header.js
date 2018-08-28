@@ -1,3 +1,6 @@
+import goHome from '../utils/back-intro';
+import game1Element from '../screens/game1-screen';
+
 const header = (state) => `
 <header class="header">
   <button class="back">
@@ -20,5 +23,8 @@ const header = (state) => `
   </div>
 </header>
 `;
+
+const backButton = document.querySelector(`.back`);
+goHome(backButton);
 
 export default header;
