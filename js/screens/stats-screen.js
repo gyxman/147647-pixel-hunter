@@ -1,5 +1,5 @@
-import {getElementFromTemplate} from './util';
-import goHome from './back-intro';
+import {getElementFromTemplate} from '../utils/util';
+import goHome from '../utils/back-intro';
 
 const template = `
 <header class="header">

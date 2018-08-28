@@ -1,6 +1,6 @@
-import {changeScreen, getElementFromTemplate} from './util';
+import {changeScreen, getElementFromTemplate} from '../utils/util';
 import game1Screen from './game1-screen';
-import goHome from './back-intro';
+import goHome from '../utils/back-intro';
 
 const template = `
 <header class="header">

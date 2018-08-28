@@ -1,6 +1,6 @@
 import {assert} from 'chai';
-import {countLives} from './count-lives';
-import {INITIAL_GAME} from './start-data';
+import {countLives} from '../utils/count-lives';
+import {INITIAL_GAME} from '../data/initial-data';
 
 describe(`count lives`, () => {
   it(`should return 3 when 3 lifes`, () => {

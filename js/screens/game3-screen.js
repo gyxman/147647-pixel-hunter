@@ -1,25 +1,10 @@
-import {changeScreen, getElementFromTemplate} from './util';
+import {changeScreen, getElementFromTemplate} from '../utils/util';
 import statsScreen from './stats-screen';
-import goHome from './back-intro';
+import goHome from '../utils/back-intro';
+import header from '../parts/header';
+import {INITIAL_GAME} from '../data/initial-data';
 
 const template = `
-<header class="header">
-  <button class="back">
-    <span class="visually-hidden">Вернуться к началу</span>
-    <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-      <use xlink:href="img/sprite.svg#arrow-left"></use>
-    </svg>
-    <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-      <use xlink:href="img/sprite.svg#logo-small"></use>
-    </svg>
-  </button>
-  <div class="game__timer">NN</div>
-  <div class="game__lives">
-    <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="31" height="27">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-  </div>
-</header>
 <section class="game">
   <p class="game__task">Найдите рисунок среди изображений</p>
   <form class="game__content  game__content--triple">
@@ -48,7 +33,9 @@ const template = `
 </section>
 `;
 
-const game3Element = getElementFromTemplate(template);
+const headerElement = header(INITIAL_GAME);
+const game3Data = `${headerElement} ${template}`;
+const game3Element = getElementFromTemplate(game3Data);
 
 const nextButtons = game3Element.querySelectorAll(`.game__option`);
 const backButton = game3Element.querySelector(`.back`);

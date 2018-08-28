@@ -1,4 +1,4 @@
-import {changeScreen, getElementFromTemplate} from './util';
+import {changeScreen, getElementFromTemplate} from '../utils/util';
 import greetingScreen from './greeting-screen';
 
 const template = `
