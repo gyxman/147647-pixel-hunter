@@ -1,8 +1,10 @@
-import {getElementFromTemplate} from '../utils/util';
+import {changeScreen, getElementFromTemplate} from '../utils/util';
 import getFooter from '../parts/footer';
+import rulesScreen from './rules-screen';
+import greetingData from '../data/greeting-data';
 
-export default (data) => {
-  const template = `
+const template = (data) => `
+  <section class="greeting central--blur">
     <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
     <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
     <div class="greeting__challenge">
@@ -10,7 +12,7 @@ export default (data) => {
       <p class="greeting__challenge-text">${data.rulesTitle}</p>
       <ul class="greeting__challenge-list">
         ${[...data.rules].map((rule) => `
-          <li class="answer">${rule}</li>
+          <li>${rule}</li>
         `).join(``)}
       </ul>
     </div>
@@ -20,14 +22,15 @@ export default (data) => {
         <use xlink:href="img/sprite.svg#arrow-right"></use>
       </svg>
     </button>
-  `;
+  </section>
+  ${getFooter(data.creationDate)}
+`;
 
-  const page = `
-    <section class="greeting central--blur">
-      ${template}
-    </section>
-    ${getFooter(data.creationDate)}
-  `;
+const screen = getElementFromTemplate(template(greetingData));
 
-  return getElementFromTemplate(page);
-};
+const nextButton = screen.querySelector(`.greeting__continue`);
+nextButton.addEventListener(`click`, () => {
+  changeScreen(rulesScreen);
+});
+
+export default screen;

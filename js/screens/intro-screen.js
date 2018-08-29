@@ -3,23 +3,20 @@ import getFooter from '../parts/footer';
 import greetingScreen from './greeting-screen';
 import introData from '../data/intro-data';
 
-const page = () => {
-  const template = (data) => `
-    <section class="intro">
-      <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
-      <p class="intro__motto">${data.description}</p>
-    </section>
-    ${getFooter(data.creationDate)}
-  `;
 
-  const screen = getElementFromTemplate(template(introData));
+const template = (data) => `
+  <section class="intro">
+    <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
+    <p class="intro__motto">${data.description}</p>
+  </section>
+  ${getFooter(data.creationDate)}
+`;
 
-  const nextButton = document.querySelector(`.intro__asterisk`);
-  nextButton.addEventListener(`click`, () => {
-    changeScreen(greetingScreen);
-  });
+const screen = getElementFromTemplate(template(introData));
 
-  return screen;
-};
+const nextButton = screen.querySelector(`.intro__asterisk`);
+nextButton.addEventListener(`click`, () => {
+  changeScreen(greetingScreen);
+});
 
-export default page;
+export default screen;
