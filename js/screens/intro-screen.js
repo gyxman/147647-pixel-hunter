@@ -1,5 +1,4 @@
 import {changeScreen, getElementFromTemplate} from '../utils/util';
-import getFooter from '../parts/footer';
 import greetingScreen from './greeting-screen';
 import introData from '../data/intro-data';
 
@@ -9,7 +8,6 @@ const template = (data) => `
     <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
     <p class="intro__motto">${data.description}</p>
   </section>
-  ${getFooter(data.creationDate)}
 `;
 
 const screen = getElementFromTemplate(template(introData));

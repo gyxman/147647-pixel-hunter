@@ -1,7 +1,6 @@
 import {changeScreen, getElementFromTemplate} from '../utils/util';
 import rulesData from '../data/rules-data';
 import getHeader from '../parts/header';
-import getFooter from '../parts/footer';
 import game1Screen from './game1-screen';
 
 const template = (data) => `
@@ -19,7 +18,6 @@ const template = (data) => `
       <button class="rules__button  continue" type="submit" disabled>${data.button}</button>
     </form>
   </section>
-  ${getFooter(data.creationDate)}
 `;
 
 const rulesElement = getElementFromTemplate(template(rulesData));

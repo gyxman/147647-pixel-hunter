@@ -10,7 +10,6 @@ export default {
   ],
   ready: `Готовы`,
   button: `Go`,
-  creationDate: `2016 — 2017`,
   remainingTime: `30`,
   lives: 3,
 };

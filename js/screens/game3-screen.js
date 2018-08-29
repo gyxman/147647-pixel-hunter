@@ -1,7 +1,6 @@
 import {changeScreen, getElementFromTemplate} from '../utils/util';
 import game3Data from '../data/game3-data';
 import getHeader from '../parts/header';
-import getFooter from '../parts/footer';
 import statsScreen from './stats-screen';
 
 const template = (data) => `
@@ -26,7 +25,6 @@ const template = (data) => `
       <li class="stats__result stats__result--unknown"></li>
     </ul>
   </section>
-  ${getFooter(data.creationDate)}
 `;
 
 const game3Element = getElementFromTemplate(template(game3Data));

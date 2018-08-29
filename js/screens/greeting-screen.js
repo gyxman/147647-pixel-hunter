@@ -1,5 +1,4 @@
 import {changeScreen, getElementFromTemplate} from '../utils/util';
-import getFooter from '../parts/footer';
 import rulesScreen from './rules-screen';
 import greetingData from '../data/greeting-data';
 
@@ -23,7 +22,6 @@ const template = (data) => `
       </svg>
     </button>
   </section>
-  ${getFooter(data.creationDate)}
 `;
 
 const screen = getElementFromTemplate(template(greetingData));
