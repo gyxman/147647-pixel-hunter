@@ -1,7 +1,8 @@
-import {getElementFromTemplate} from '../utils/util';
+import {changeScreen, getElementFromTemplate} from '../utils/util';
 import game1Data from '../data/game1-data';
 import getHeader from '../parts/header';
 import getFooter from '../parts/footer';
+import game2Screen from './game2-screen';
 
 const template = (data) => `
   ${getHeader(data)}
@@ -29,5 +30,17 @@ const template = (data) => `
 `;
 
 const game1Element = getElementFromTemplate(template(game1Data));
+
+const radioElements = game1Element.querySelectorAll(`.visually-hidden`);
+const variants = game1Element.querySelectorAll(`.game__option`);
+
+radioElements.forEach((element)=> {
+  element.addEventListener(`change`, ()=> {
+    const selectedRadioElements = game1Element.querySelectorAll(`.visually-hidden:checked`);
+    if (selectedRadioElements.length === variants.length) {
+      changeScreen(game2Screen);
+    }
+  });
+});
 
 export default game1Element;

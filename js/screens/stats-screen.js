@@ -1,5 +1,4 @@
 import {getElementFromTemplate} from '../utils/util';
-import goHome from '../utils/back-intro';
 
 const template = `
 <header class="header">
@@ -116,9 +115,5 @@ const template = `
 `;
 
 const statsElement = getElementFromTemplate(template);
-
-const backButton = statsElement.querySelector(`.back`);
-
-goHome(backButton);
 
 export default statsElement;

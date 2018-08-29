@@ -1,7 +1,8 @@
-import {getElementFromTemplate} from '../utils/util';
+import {changeScreen, getElementFromTemplate} from '../utils/util';
 import rulesData from '../data/rules-data';
 import getHeader from '../parts/header';
 import getFooter from '../parts/footer';
+import game1Screen from './game1-screen';
 
 const template = (data) => `
   ${getHeader(data)}
@@ -22,5 +23,22 @@ const template = (data) => `
 `;
 
 const rulesElement = getElementFromTemplate(template(rulesData));
+
+const form = rulesElement.querySelector(`.rules__form`);
+const submitButton = rulesElement.querySelector(`.rules__button`);
+const inputName = rulesElement.querySelector(`.rules__input`);
+
+inputName.addEventListener(`keyup`, ()=> {
+  if (inputName.value.length > 0) {
+    submitButton.removeAttribute(`disabled`);
+  } else {
+    submitButton.setAttribute(`disabled`, `disabled`);
+  }
+});
+
+form.addEventListener(`submit`, (e)=> {
+  e.preventDefault();
+  changeScreen(game1Screen);
+});
 
 export default rulesElement;
