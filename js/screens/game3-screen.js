@@ -1,10 +1,10 @@
 import {changeScreen, getElementFromTemplate} from '../utils/util';
 import game3Data from '../data/game3-data';
-import statsScreen from './stats-screen';
 import getHeader from '../parts/header';
-import rulesScreen from './rules-screen';
+import statsScreen from './stats-screen';
 
 const template = (data) => `
+  ${getHeader(data)}
   <section class="game">
     <p class="game__task">Найдите рисунок среди изображений</p>
     <form class="game__content  game__content--triple">

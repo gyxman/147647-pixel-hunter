@@ -10,4 +10,6 @@ export default {
   ],
   ready: `Готовы`,
   button: `Go`,
+  remainingTime: `30`,
+  lives: 3,
 };
