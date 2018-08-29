@@ -1,18 +1,25 @@
-import {getElementFromTemplate} from '../utils/util';
+import {changeScreen, getElementFromTemplate} from '../utils/util';
 import getFooter from '../parts/footer';
+import greetingScreen from './greeting-screen';
+import introData from '../data/intro-data';
 
-export default (data) => {
-  const template = `
-    <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
-    <p class="intro__motto">${data.description}</p>
-  `;
-
-  const page = `
+const page = () => {
+  const template = (data) => `
     <section class="intro">
-      ${template}
+      <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
+      <p class="intro__motto">${data.description}</p>
     </section>
     ${getFooter(data.creationDate)}
   `;
 
-  return getElementFromTemplate(page);
+  const screen = getElementFromTemplate(template(introData));
+
+  const nextButton = document.querySelector(`.intro__asterisk`);
+  nextButton.addEventListener(`click`, () => {
+    changeScreen(greetingScreen);
+  });
+
+  return screen;
 };
+
+export default page;
