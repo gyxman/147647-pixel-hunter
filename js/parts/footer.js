@@ -1,4 +1,5 @@
 import footerData from '../data/footer-data';
+import {getElementFromTemplate} from '../utils/util';
 
 const template = (data) => `
 <a href="https://htmlacademy.ru" class="social-link">
@@ -36,4 +37,6 @@ const template = (data) => `
 </div>
 `;
 
-export default template(footerData);
+const footerElement = getElementFromTemplate(template(footerData), undefined, `footer__container`);
+
+export default footerElement;
