@@ -7,7 +7,9 @@ export const getElementFromTemplate = (template, tagName = `div`, tagClass) => {
 
 const mainElement = document.querySelector(`#main`);
 
-export const changeScreen = (element) => {
+export const changeScreen = (...elements) => {
   mainElement.innerHTML = ``;
-  mainElement.appendChild(element);
+  elements.forEach((element) => {
+    mainElement.appendChild(element);
+  });
 };

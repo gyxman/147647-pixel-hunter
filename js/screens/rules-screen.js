@@ -4,7 +4,6 @@ import getHeader from '../parts/header';
 import game1Screen from './game1-screen';
 
 const template = (data) => `
-  ${getHeader(data)}
   <section class="rules">
     <h2 class="rules__title">${data.title}</h2>
     <ul class="rules__description">
@@ -36,7 +35,7 @@ inputName.addEventListener(`keyup`, ()=> {
 
 form.addEventListener(`submit`, (e)=> {
   e.preventDefault();
-  changeScreen(game1Screen);
+  changeScreen(getHeader, game1Screen);
 });
 
 export default rulesElement;

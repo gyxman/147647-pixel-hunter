@@ -1,6 +1,7 @@
 import {changeScreen, getElementFromTemplate} from '../utils/util';
 import rulesScreen from './rules-screen';
 import greetingData from '../data/greeting-data';
+import getHeader from '../parts/header';
 
 const template = (data) => `
   <section class="greeting central--blur">
@@ -28,7 +29,7 @@ const screen = getElementFromTemplate(template(greetingData));
 
 const nextButton = screen.querySelector(`.greeting__continue`);
 nextButton.addEventListener(`click`, () => {
-  changeScreen(rulesScreen);
+  changeScreen(getHeader, rulesScreen);
 });
 
 export default screen;

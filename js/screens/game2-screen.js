@@ -1,10 +1,10 @@
 import {changeScreen, getElementFromTemplate} from '../utils/util';
 import game2Data from '../data/game2-data';
-import getHeader from '../parts/header';
 import game3Screen from './game3-screen';
+import getHeader from '../parts/header';
+import rulesScreen from './rules-screen';
 
 const template = (data)=> `
-  ${getHeader(data)}
   <section class="game">
     <p class="game__task">${data.title}</p>
     <form class="game__content  game__content--wide">
@@ -33,7 +33,7 @@ const nextButtons = game2Element.querySelectorAll(`.game__answer`);
 
 nextButtons.forEach((element)=> {
   element.addEventListener(`click`, ()=> {
-    changeScreen(game3Screen);
+    changeScreen(getHeader, game3Screen);
   });
 });
 

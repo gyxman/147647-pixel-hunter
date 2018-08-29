@@ -24,6 +24,4 @@ export default {
       </label>
     `
   ],
-  remainingTime: `30`,
-  lives: 3,
 };
