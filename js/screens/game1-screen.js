@@ -2,6 +2,7 @@ import {changeScreen, getElementFromTemplate} from '../utils/util';
 import game1Data from '../data/game1-data';
 import getHeader from '../parts/header';
 import game2Screen from './game2-screen';
+import goHome from '../utils/back-intro';
 
 const template = (data) => `
   ${getHeader(data)}
@@ -31,6 +32,9 @@ const game1Element = getElementFromTemplate(template(game1Data));
 
 const radioElements = game1Element.querySelectorAll(`.visually-hidden`);
 const variants = game1Element.querySelectorAll(`.game__option`);
+const backButton = game1Element.querySelector(`.back`);
+
+goHome(backButton);
 
 radioElements.forEach((element)=> {
   element.addEventListener(`change`, ()=> {

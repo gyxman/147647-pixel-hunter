@@ -2,6 +2,8 @@ import {changeScreen, getElementFromTemplate} from '../utils/util';
 import game3Data from '../data/game3-data';
 import getHeader from '../parts/header';
 import statsScreen from './stats-screen';
+import goHome from '../utils/back-intro';
+import game1Element from './game1-screen';
 
 const template = (data) => `
   ${getHeader(data)}
@@ -28,8 +30,10 @@ const template = (data) => `
 `;
 
 const game3Element = getElementFromTemplate(template(game3Data));
-
 const nextButtons = game3Element.querySelectorAll(`.game__option`);
+const backButton = game3Element.querySelector(`.back`);
+
+goHome(backButton);
 
 nextButtons.forEach((element)=> {
   element.addEventListener(`click`, ()=> {

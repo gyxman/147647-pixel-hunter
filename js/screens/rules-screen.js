@@ -2,6 +2,7 @@ import {changeScreen, getElementFromTemplate} from '../utils/util';
 import rulesData from '../data/rules-data';
 import getHeader from '../parts/header';
 import game1Screen from './game1-screen';
+import goHome from '../utils/back-intro';
 
 const template = (data) => `
   ${getHeader(data)}
@@ -25,6 +26,9 @@ const rulesElement = getElementFromTemplate(template(rulesData));
 const form = rulesElement.querySelector(`.rules__form`);
 const submitButton = rulesElement.querySelector(`.rules__button`);
 const inputName = rulesElement.querySelector(`.rules__input`);
+const backButton = rulesElement.querySelector(`.back`);
+
+goHome(backButton);
 
 inputName.addEventListener(`keyup`, ()=> {
   if (inputName.value.length > 0) {
