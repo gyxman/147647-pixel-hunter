@@ -7,7 +7,7 @@ import goHome from '../utils/back-intro';
 const template = (data) => `
   ${getHeader(data)}
   <section class="game">
-    <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+    <p class="game__task">${data.title}</p>
     <form class="game__content">
       ${[...data.options].map((option) => `
         <div class="game__option">${option}</div>

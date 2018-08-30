@@ -3,7 +3,6 @@ import game2Data from '../data/game2-data';
 import getHeader from '../parts/header';
 import game3Screen from './game3-screen';
 import goHome from '../utils/back-intro';
-import game1Element from './game1-screen';
 
 const template = (data)=> `
   ${getHeader(data)}

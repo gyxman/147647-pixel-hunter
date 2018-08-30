@@ -3,12 +3,11 @@ import game3Data from '../data/game3-data';
 import getHeader from '../parts/header';
 import statsScreen from './stats-screen';
 import goHome from '../utils/back-intro';
-import game1Element from './game1-screen';
 
 const template = (data) => `
   ${getHeader(data)}
   <section class="game">
-    <p class="game__task">Найдите рисунок среди изображений</p>
+    <p class="game__task">${data.title}</p>
     <form class="game__content  game__content--triple">
       ${[...data.options].map((option) => `
         <div class="game__option">${option}</div>

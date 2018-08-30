@@ -1,4 +1,4 @@
-const header = (state) => `
+const header = (data) => `
 <header class="header">
   <button class="back">
     <span class="visually-hidden">Вернуться к началу</span>
@@ -9,12 +9,12 @@ const header = (state) => `
       <use xlink:href="img/sprite.svg#logo-small"></use>
     </svg>
   </button>
-  <div class="game__timer">${state.remainingTime}</div>
+  <div class="game__timer">${data.remainingTime}</div>
   <div class="game__lives">
-    ${new Array(3 - state.lives)
+    ${new Array(3 - data.lives)
     .fill(`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`)
       .join(``)}
-    ${new Array(state.lives)
+    ${new Array(data.lives)
       .fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">`)
       .join(``)}
   </div>

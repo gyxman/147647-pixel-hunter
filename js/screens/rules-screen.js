@@ -1,7 +1,7 @@
 import {changeScreen, getElementFromTemplate} from '../utils/util';
 import rulesData from '../data/rules-data';
 import getHeader from '../parts/header';
-import game1Screen from './game1-screen';
+import gameScreen from './game-screen';
 import goHome from '../utils/back-intro';
 
 const template = (data) => `
@@ -40,7 +40,7 @@ inputName.addEventListener(`keyup`, ()=> {
 
 form.addEventListener(`submit`, (e)=> {
   e.preventDefault();
-  changeScreen(game1Screen);
+  changeScreen(gameScreen);
 });
 
 export default rulesElement;
