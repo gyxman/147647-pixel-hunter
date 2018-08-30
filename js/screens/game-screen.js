@@ -39,20 +39,7 @@ const template = (data, initialData) => `
   <section class="game">
     <p class="game__task">${data.title}</p>
     <form class="game__content ${initialData.level === `level-1` ? `game__content--wide` : ``}">
-      /*${[...data.options].map((option, index) => `
-      <div class="game__option">
-        <img src="${option.src}" alt="Option ${index + 1}" width="468" height="458">
-        <label class="game__answer game__answer--photo">
-          <input class="visually-hidden" name="question${index + 1}" type="radio" value="${option.labels[0].value}">
-          <span>${option.labels[0].name}</span>
-        </label>
-        <label class="game__answer game__answer--paint">
-          <input class="visually-hidden" name="question${index + 1}" type="radio" value="${option.labels[1].value}">
-          <span>${option.labels[0].name}</span>
-        </label>
-      </div>
-      `).join(``)}*/
-      ${getGameTemplate(data, initialData)}
+    
     </form>
     <ul class="stats">
       <li class="stats__result stats__result--wrong"></li>
@@ -69,22 +56,32 @@ const template = (data, initialData) => `
   </section>
 `;
 
+
 const gameElement = getElementFromTemplate(template(gameData[initialState.level], initialState));
 
-const radioElements = gameElement.querySelectorAll(`.visually-hidden`);
-const variants = gameElement.querySelectorAll(`.game__option`);
 const backButton = gameElement.querySelector(`.back`);
 
 goHome(backButton);
 
-radioElements.forEach((element)=> {
-  element.addEventListener(`change`, ()=> {
-    const selectedRadioElements = gameElement.querySelectorAll(`.visually-hidden:checked`);
-    if (selectedRadioElements.length === variants.length) {
-      initialState.level = `level-1`;
-      changeScreen(getElementFromTemplate(template(gameData[initialState.level], initialState)));
-    }
+const gameContent = gameElement.querySelector(`.game__content`);
+const changeLevel = (element) => {
+  gameContent.innerHTML = ``;
+  gameContent.innerHTML = element;
+
+  const radioElements = gameElement.querySelectorAll(`.visually-hidden`);
+  const variants = gameElement.querySelectorAll(`.game__option`);
+
+  radioElements.forEach((element2)=> {
+    element2.addEventListener(`change`, ()=> {
+      const selectedRadioElements = gameElement.querySelectorAll(`.visually-hidden:checked`);
+      if (selectedRadioElements.length === variants.length) {
+        initialState.level = `level-1`;
+        changeScreen(getElementFromTemplate(template(gameData[initialState.level], initialState)));
+      }
+    });
   });
-});
+};
+
+changeLevel(getGameTemplate(gameData[initialState.level], initialState));
 
 export default gameElement;
