@@ -4,6 +4,7 @@ import getHeader from '../parts/header';
 import goHome from '../utils/back-intro';
 import statsScreen from './stats-screen';
 import gameData from '../data/game-data';
+import checkAnswer from '../utils/check-answer';
 
 const getGameTemplate = (data, initialData) => {
   if (initialData.level === `level-0` || initialData.level === `level-1`) {
@@ -117,8 +118,8 @@ const changeLevel = (element) => {
   }
 };
 
-const saveResult = (array) => {
-  gameData.answers.push(array);
+const saveResult = (array, initialData) => {
+  gameData.answers.push({answer: checkAnswer(array, initialData), time: `normal`});
 };
 
 changeLevel(getGameTemplate(levelsData[gameData.level], gameData));
