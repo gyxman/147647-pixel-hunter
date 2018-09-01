@@ -5,12 +5,13 @@ import goHome from '../utils/back-intro';
 import statsScreen from './stats-screen';
 import gameData from '../data/game-data';
 import checkAnswer from '../utils/check-answer';
+import updateInfo from '../utils/update-info';
 
-const getGameTemplate = (data, initialData) => {
-  if (initialData.level === `level-0` || initialData.level === `level-1`) {
+const getGameTemplate = (data) => {
+  if (gameData.level === `level-0` || gameData.level === `level-1`) {
     return `
       <p class="game__task">${data.title}</p>
-      <form class="game__content ${initialData.level === `level-1` ? `game__content--wide` : ``}">
+      <form class="game__content ${gameData.level === `level-1` ? `game__content--wide` : ``}">
         ${[...data.options].map((option, index) => `
           <div class="game__option">
             <img src="${option.src}" alt="Option ${index + 1}" width="468" height="458">
@@ -41,7 +42,7 @@ const getGameTemplate = (data, initialData) => {
   }
   return `
     <p class="game__task">${data.title}</p>
-    <form class="game__content ${initialData.level === `level-2` ? `game__content--triple` : ``}">
+    <form class="game__content ${gameData.level === `level-2` ? `game__content--triple` : ``}">
       ${[...data.options].map((option, index) => `
         <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" width="304" height="455" data-answer="${option.labels[0].value}"></div>
       `).join(``)}
@@ -90,8 +91,9 @@ const changeLevel = (element) => {
         const selectedRadioElements = gameElement.querySelectorAll(`.visually-hidden:checked`);
         if (selectedRadioElements.length === variants.length) {
           saveResult([...selectedRadioElements].map((selectedRadio)=> selectedRadio.value));
+          updateInfo();
           gameData.level = `level-1`;
-          changeLevel(getGameTemplate(levelsData[gameData.level], gameData));
+          changeLevel(getGameTemplate(levelsData[gameData.level]));
         }
       });
     });
@@ -102,8 +104,9 @@ const changeLevel = (element) => {
         event.preventDefault();
         const selectedElements = event.currentTarget.querySelectorAll(`.visually-hidden`);
         saveResult([...selectedElements].map((selectedRadio)=> selectedRadio.value));
+        updateInfo();
         gameData.level = `level-2`;
-        changeLevel(getGameTemplate(levelsData[gameData.level], gameData));
+        changeLevel(getGameTemplate(levelsData[gameData.level]));
       });
     });
   } else {
@@ -112,16 +115,17 @@ const changeLevel = (element) => {
       button.addEventListener(`click`, ()=> {
         const selectedElements = event.currentTarget.querySelectorAll(`img`);
         saveResult([...selectedElements].map((selectedRadio)=> selectedRadio.getAttribute(`data-answer`)));
+        updateInfo();
         changeScreen(statsScreen);
       });
     });
   }
 };
 
-const saveResult = (array, initialData) => {
-  gameData.answers.push({answer: checkAnswer(array, initialData), time: `normal`});
+const saveResult = (array) => {
+  gameData.answers.push({answer: checkAnswer(array), time: `normal`});
 };
 
-changeLevel(getGameTemplate(levelsData[gameData.level], gameData));
+changeLevel(getGameTemplate(levelsData[gameData.level]));
 
 export default gameElement;
