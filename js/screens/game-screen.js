@@ -2,6 +2,7 @@ import {changeScreen, getElementFromTemplate} from '../utils/util';
 import gameData from '../data/game-data';
 import getHeader from '../parts/header';
 import goHome from '../utils/back-intro';
+import statsScreen from './stats-screen';
 
 const initialState = {
   level: `level-0`,
@@ -38,7 +39,7 @@ const template = (data, initialData) => `
   ${getHeader(initialData)}
   <section class="game">
     <p class="game__task">${data.title}</p>
-    <form class="game__content ${initialData.level === `level-1` ? `game__content--wide` : ``}">
+    <form class="game__content">
     
     </form>
     <ul class="stats">
@@ -64,22 +65,44 @@ const backButton = gameElement.querySelector(`.back`);
 goHome(backButton);
 
 const gameContent = gameElement.querySelector(`.game__content`);
+
 const changeLevel = (element) => {
   gameContent.innerHTML = ``;
   gameContent.innerHTML = element;
 
-  const radioElements = gameElement.querySelectorAll(`.visually-hidden`);
-  const variants = gameElement.querySelectorAll(`.game__option`);
+  if (initialState.level === `level-0`) {
+    const radioElements = gameElement.querySelectorAll(`.visually-hidden`);
+    const variants = gameElement.querySelectorAll(`.game__option`);
 
-  radioElements.forEach((element2)=> {
-    element2.addEventListener(`change`, ()=> {
-      const selectedRadioElements = gameElement.querySelectorAll(`.visually-hidden:checked`);
-      if (selectedRadioElements.length === variants.length) {
-        initialState.level = `level-1`;
-        changeScreen(getElementFromTemplate(template(gameData[initialState.level], initialState)));
-      }
+    radioElements.forEach((radio)=> {
+      radio.addEventListener(`change`, ()=> {
+        const selectedRadioElements = gameElement.querySelectorAll(`.visually-hidden:checked`);
+        if (selectedRadioElements.length === variants.length) {
+          initialState.level = `level-1`;
+          changeLevel(getGameTemplate(gameData[initialState.level], initialState));
+        }
+      });
     });
-  });
+  } else if (initialState.level === `level-1`) {
+    gameContent.classList.add(`game__content--wide`);
+    const nextButtons = gameElement.querySelectorAll(`.game__answer`);
+    nextButtons.forEach((button)=> {
+      button.addEventListener(`click`, ()=> {
+        initialState.level = `level-2`;
+        changeLevel(getGameTemplate(gameData[initialState.level], initialState));
+      });
+    });
+  } else {
+    gameContent.classList.remove(`game__content--wide`);
+    gameContent.classList.add(`game__content--triple`);
+
+    const nextButtons = gameElement.querySelectorAll(`.game__option`);
+    nextButtons.forEach((button)=> {
+      button.addEventListener(`click`, ()=> {
+        changeScreen(statsScreen);
+      });
+    });
+  }
 };
 
 changeLevel(getGameTemplate(gameData[initialState.level], initialState));
