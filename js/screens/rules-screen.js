@@ -3,9 +3,10 @@ import rulesData from '../data/rules-data';
 import getHeader from '../parts/header';
 import gameScreen from './game-screen';
 import goHome from '../utils/back-intro';
+import gameData from '../data/game-data';
 
-const template = (data) => `
-  ${getHeader(data)}
+const template = (data, initialData) => `
+  ${getHeader(initialData)}
   <section class="rules">
     <h2 class="rules__title">${data.title}</h2>
     <ul class="rules__description">
@@ -21,7 +22,7 @@ const template = (data) => `
   </section>
 `;
 
-const rulesElement = getElementFromTemplate(template(rulesData));
+const rulesElement = getElementFromTemplate(template(rulesData, gameData));
 
 const form = rulesElement.querySelector(`.rules__form`);
 const submitButton = rulesElement.querySelector(`.rules__button`);
@@ -40,6 +41,7 @@ inputName.addEventListener(`keyup`, ()=> {
 
 form.addEventListener(`submit`, (e)=> {
   e.preventDefault();
+  gameData.userName = inputName.value;
   changeScreen(gameScreen);
 });
 
