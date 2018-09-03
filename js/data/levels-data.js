@@ -1,5 +1,6 @@
-const levels = {
-  'level-0': {
+const levels = [
+  {
+    type: `twoOfTwo`,
     title: `Угадайте для каждого изображения фото или рисунок?`,
     options: [
       {
@@ -32,7 +33,8 @@ const levels = {
       },
     ],
   },
-  'level-1': {
+  {
+    type: `oneOfOne`,
     title: `Угадай, фото или рисунок?`,
     options: [
       {
@@ -51,7 +53,8 @@ const levels = {
       },
     ],
   },
-  'level-2': {
+  {
+    type: `oneOfThree`,
     title: `Найдите рисунок среди изображений`,
     options: [
       {
@@ -82,7 +85,238 @@ const levels = {
         answer: `paint`,
       },
     ],
+  },
+  {
+    type: `oneOfThree`,
+    title: `Найдите рисунок среди изображений 2`,
+    options: [
+      {
+        src: `https://k42.kn3.net/CF42609C8.jpg`,
+        labels: [
+          {
+            value: `paint`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DiHM5Zb.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DKR1HtB.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+    ],
+  },
+  {
+    type: `oneOfThree`,
+    title: `Найдите рисунок среди изображений 3`,
+    options: [
+      {
+        src: `https://k42.kn3.net/CF42609C8.jpg`,
+        labels: [
+          {
+            value: `paint`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DiHM5Zb.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DKR1HtB.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+    ],
+  },
+  {
+    type: `oneOfThree`,
+    title: `Найдите рисунок среди изображений 4`,
+    options: [
+      {
+        src: `https://k42.kn3.net/CF42609C8.jpg`,
+        labels: [
+          {
+            value: `paint`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DiHM5Zb.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DKR1HtB.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+    ],
+  },
+  {
+    type: `oneOfThree`,
+    title: `Найдите рисунок среди изображений 5`,
+    options: [
+      {
+        src: `https://k42.kn3.net/CF42609C8.jpg`,
+        labels: [
+          {
+            value: `paint`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DiHM5Zb.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DKR1HtB.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+    ],
+  },
+  {
+    type: `oneOfThree`,
+    title: `Найдите рисунок среди изображений 6`,
+    options: [
+      {
+        src: `https://k42.kn3.net/CF42609C8.jpg`,
+        labels: [
+          {
+            value: `paint`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DiHM5Zb.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DKR1HtB.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+    ],
+  },
+  {
+    type: `oneOfThree`,
+    title: `Найдите рисунок среди изображений 7`,
+    options: [
+      {
+        src: `https://k42.kn3.net/CF42609C8.jpg`,
+        labels: [
+          {
+            value: `paint`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DiHM5Zb.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DKR1HtB.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+    ],
+  },
+  {
+    type: `oneOfThree`,
+    title: `Найдите рисунок среди изображений 8`,
+    options: [
+      {
+        src: `https://k42.kn3.net/CF42609C8.jpg`,
+        labels: [
+          {
+            value: `paint`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DiHM5Zb.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+      {
+        src: `https://i.imgur.com/DKR1HtB.jpg`,
+        labels: [
+          {
+            value: `photo`,
+          },
+        ],
+        answer: `paint`,
+      },
+    ],
   }
-};
+];
 
 export default levels;

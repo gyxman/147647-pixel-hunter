@@ -3,7 +3,9 @@ import getHeader from '../parts/header';
 import goHome from '../utils/back-intro';
 
 const template = `
-  ${getHeader()}
+  <header class="header">
+    ${getHeader()}
+  </header>
   <section class="result">
     <h2 class="result__title">Победа!</h2>
     <table class="result__table">

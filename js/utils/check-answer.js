@@ -3,7 +3,6 @@ import levelsData from '../data/levels-data';
 
 const checkAnswer = (answers) => {
   let isRight = true;
-
   const currentAnswers = levelsData[gameData.level].options.map((option) => {
     return option.answer;
   });

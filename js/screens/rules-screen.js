@@ -6,7 +6,9 @@ import goHome from '../utils/back-intro';
 import gameData from '../data/game-data';
 
 const template = (data, initialData) => `
-  ${getHeader(initialData)}
+  <header class="header">
+    ${getHeader(initialData)}
+  </header>
   <section class="rules">
     <h2 class="rules__title">${data.title}</h2>
     <ul class="rules__description">

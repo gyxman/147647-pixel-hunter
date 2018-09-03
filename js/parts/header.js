@@ -23,10 +23,8 @@ const headerEnhanced = (data) => `
 `;
 
 const header = (data) => `
-  <header class="header">
-    ${headerMain}
-    ${data ? headerEnhanced(data) : ``}
-  </header>
+  ${headerMain}
+  ${data ? headerEnhanced(data) : ``}
 `;
 
 export default header;

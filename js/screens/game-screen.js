@@ -8,10 +8,10 @@ import checkAnswer from '../utils/check-answer';
 import updateInfo from '../utils/update-info';
 
 const getGameTemplate = (data) => {
-  if (gameData.level === `level-0` || gameData.level === `level-1`) {
+  if (data.type === `twoOfTwo` || data.type === `oneOfOne`) {
     return `
       <p class="game__task">${data.title}</p>
-      <form class="game__content ${gameData.level === `level-1` ? `game__content--wide` : ``}">
+      <form class="game__content ${data.type === `oneOfOne` ? `game__content--wide` : ``}">
         ${[...data.options].map((option, index) => `
           <div class="game__option">
             <img src="${option.src}" alt="Option ${index + 1}" width="468" height="458">
@@ -42,7 +42,7 @@ const getGameTemplate = (data) => {
   }
   return `
     <p class="game__task">${data.title}</p>
-    <form class="game__content ${gameData.level === `level-2` ? `game__content--triple` : ``}">
+    <form class="game__content ${data.type === `oneOfThree` ? `game__content--triple` : ``}">
       ${[...data.options].map((option, index) => `
         <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" width="304" height="455" data-answer="${option.labels[0].value}"></div>
       `).join(``)}
@@ -63,7 +63,9 @@ const getGameTemplate = (data) => {
 };
 
 const template = (data, initialData) => `
-  ${getHeader(initialData)}
+  <header class="header">
+    ${getHeader(initialData)}
+  </header>
   <section class="game">
     
   </section>
@@ -82,7 +84,7 @@ const changeLevel = (element) => {
   gameContent.innerHTML = ``;
   gameContent.innerHTML = element;
 
-  if (gameData.level === `level-0`) {
+  if (levelsData[gameData.level].type === `twoOfTwo`) {
     const radioElements = gameElement.querySelectorAll(`.visually-hidden`);
     const variants = gameElement.querySelectorAll(`.game__option`);
 
@@ -92,12 +94,17 @@ const changeLevel = (element) => {
         if (selectedRadioElements.length === variants.length) {
           saveResult([...selectedRadioElements].map((selectedRadio)=> selectedRadio.value));
           updateInfo();
-          gameData.level = `level-1`;
-          changeLevel(getGameTemplate(levelsData[gameData.level]));
+          updateHeader(gameData);
+          if (gameData.level < levelsData.length - 1) {
+            gameData.level += 1;
+            changeLevel(getGameTemplate(levelsData[gameData.level]));
+          } else {
+            changeScreen(statsScreen);
+          }
         }
       });
     });
-  } else if (gameData.level === `level-1`) {
+  } else if (levelsData[gameData.level].type === `oneOfOne`) {
     const nextButtons = gameElement.querySelectorAll(`.game__answer`);
     nextButtons.forEach((button) => {
       button.addEventListener(`click`, (event)=> {
@@ -105,8 +112,13 @@ const changeLevel = (element) => {
         const selectedElements = event.currentTarget.querySelectorAll(`.visually-hidden`);
         saveResult([...selectedElements].map((selectedRadio)=> selectedRadio.value));
         updateInfo();
-        gameData.level = `level-2`;
-        changeLevel(getGameTemplate(levelsData[gameData.level]));
+        updateHeader(gameData);
+        if (gameData.level < levelsData.length - 1) {
+          gameData.level += 1;
+          changeLevel(getGameTemplate(levelsData[gameData.level]));
+        } else {
+          changeScreen(statsScreen);
+        }
       });
     });
   } else {
@@ -116,7 +128,13 @@ const changeLevel = (element) => {
         const selectedElements = event.currentTarget.querySelectorAll(`img`);
         saveResult([...selectedElements].map((selectedRadio)=> selectedRadio.getAttribute(`data-answer`)));
         updateInfo();
-        changeScreen(statsScreen);
+        updateHeader(gameData);
+        if (gameData.level < levelsData.length - 1) {
+          gameData.level += 1;
+          changeLevel(getGameTemplate(levelsData[gameData.level]));
+        } else {
+          changeScreen(statsScreen);
+        }
       });
     });
   }
@@ -124,6 +142,16 @@ const changeLevel = (element) => {
 
 const saveResult = (array) => {
   gameData.answers.push({answer: checkAnswer(array), time: `normal`});
+};
+
+const updateHeader = (initialData) => {
+  const header = gameElement.querySelector(`.header`);
+  header.innerHTML = ``;
+  header.innerHTML = `${getHeader(initialData)}`;
+
+  if (gameData.lives === 0) {
+    changeScreen(statsScreen);
+  }
 };
 
 changeLevel(getGameTemplate(levelsData[gameData.level]));
