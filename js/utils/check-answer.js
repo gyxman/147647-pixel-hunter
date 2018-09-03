@@ -13,6 +13,10 @@ const checkAnswer = (answers) => {
     }
   });
 
+  if (isRight) {
+    gameData.rightsAnswers += 1;
+  }
+
   return isRight;
 };
 

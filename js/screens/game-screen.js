@@ -6,6 +6,7 @@ import statsScreen from './stats-screen';
 import gameData from '../data/game-data';
 import checkAnswer from '../utils/check-answer';
 import updateInfo from '../utils/update-info';
+import {updateStatistics} from './stats-screen';
 
 const getGameTemplate = (data) => {
   if (data.type === `twoOfTwo` || data.type === `oneOfOne`) {
@@ -151,6 +152,7 @@ const updateHeader = (initialData) => {
 
   if (gameData.lives === 0) {
     changeScreen(statsScreen);
+    updateStatistics(gameData);
   }
 };
 

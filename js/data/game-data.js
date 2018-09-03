@@ -3,6 +3,7 @@ const game = {
   userName: `Безымянный`,
   remainingTime: `30`,
   lives: 3,
+  rightsAnswers: 0,
   answers: [],
 };
 
