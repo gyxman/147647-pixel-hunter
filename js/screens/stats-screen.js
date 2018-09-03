@@ -1,6 +1,16 @@
 import {getElementFromTemplate} from '../utils/util';
 import getHeader from '../parts/header';
 import goHome from '../utils/back-intro';
+import gameData from '../data/game-data';
+
+
+const getStepsTemplate = (data) => {
+  return `
+    ${[data.answers].map((answer) => `
+        <li class="stats__result"></li>
+    `).join(``)}
+  `;
+};
 
 const template = `
   <header class="header">
@@ -13,16 +23,7 @@ const template = `
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--unknown"></li>
+            
           </ul>
         </td>
         <td class="result__points">× 100</td>
@@ -53,7 +54,7 @@ const template = `
         <td colspan="5" class="result__total  result__total--final">950</td>
       </tr>
     </table>
-    <table class="result__table">
+    <table class="result__table" style="display:none;">
       <tr>
         <td class="result__number">2.</td>
         <td>
@@ -74,7 +75,7 @@ const template = `
         <td class="result__total  result__total--final">fail</td>
       </tr>
     </table>
-    <table class="result__table">
+    <table class="result__table" style="display:none;">
       <tr>
         <td class="result__number">3.</td>
         <td colspan="2">
@@ -109,6 +110,15 @@ const template = `
 `;
 
 const statsElement = getElementFromTemplate(template);
+
+const stepsElement = statsElement.querySelector(`.stats`);
+
+const setStatistics = (element) => {
+  stepsElement.innerHTML = ``;
+  stepsElement.innerHTML = element;
+};
+
+setStatistics(getStepsTemplate(gameData));
 
 const backButton = statsElement.querySelector(`.back`);
 
