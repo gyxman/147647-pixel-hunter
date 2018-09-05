@@ -101,6 +101,7 @@ const changeLevel = (element) => {
             changeLevel(getGameTemplate(levelsData[gameData.level]));
           } else {
             changeScreen(statsScreen);
+            updateStatistics(gameData);
           }
         }
       });
@@ -119,6 +120,7 @@ const changeLevel = (element) => {
           changeLevel(getGameTemplate(levelsData[gameData.level]));
         } else {
           changeScreen(statsScreen);
+          updateStatistics(gameData);
         }
       });
     });
@@ -135,6 +137,7 @@ const changeLevel = (element) => {
           changeLevel(getGameTemplate(levelsData[gameData.level]));
         } else {
           changeScreen(statsScreen);
+          updateStatistics(gameData);
         }
       });
     });
