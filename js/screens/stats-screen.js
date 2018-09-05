@@ -1,11 +1,9 @@
 import {getElementFromTemplate} from '../utils/util';
 import getHeader from '../parts/header';
 import goHome from '../utils/back-intro';
-import gameData from '../data/game-data';
 
 
 const getStepsTemplate = (data) => {
-  console.log(data);
   return `
     <tr>
       <td class="result__number">1.</td>
