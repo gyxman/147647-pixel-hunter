@@ -14,6 +14,13 @@
   align-items: center;
 }
 
+.footer__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .footer__made-in {
   @include small-text;
 

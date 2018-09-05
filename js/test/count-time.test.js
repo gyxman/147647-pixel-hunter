@@ -1,6 +1,6 @@
 import {assert} from 'chai';
-import {countTime} from './count-time';
-import {INITIAL_GAME} from './start-data';
+import {countTime} from '../utils/count-time';
+import {INITIAL_GAME} from '../data/initial-data';
 
 describe(`count time`, () => {
   it(`should return 10 when 10 seconds`, () => {

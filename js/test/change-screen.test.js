@@ -1,6 +1,6 @@
 import {assert} from 'chai';
-import {changeScreen} from './change-screen';
-import {INITIAL_GAME} from './start-data';
+import {changeScreen} from '../utils/change-screen';
+import {INITIAL_GAME} from '../data/initial-data';
 
 describe(`change screen`, () => {
   it(`should return 3 when 3 screen`, () => {

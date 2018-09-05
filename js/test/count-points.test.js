@@ -1,6 +1,6 @@
 import {assert} from 'chai';
-import {countPonts} from './count-points';
-import {INITIAL_GAME} from './start-data';
+import {countPonts} from '../utils/count-points';
+import {INITIAL_GAME} from '../data/initial-data';
 
 // Заполним тестовые данные
 const arraySmall = Array(9).fill(0).map(() => ({answer: true, time: `normal`}));
