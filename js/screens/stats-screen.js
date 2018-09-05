@@ -2,7 +2,6 @@ import {getElementFromTemplate} from '../utils/util';
 import getHeader from '../parts/header';
 import goHome from '../utils/back-intro';
 
-
 const getStepsTemplate = (data) => {
   return `
     <h2 class="result__title">${data.lives ? `Победа!` : `Поражение!`}</h2>
