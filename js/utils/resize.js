@@ -4,26 +4,23 @@ const resize = (frame, image) => {
     height: 0,
   };
 
-  if (image.width === image.height) {
-    if (image.width > frame.width) {
+  const ratio = image.width / image.height;
+
+  // в тестах не проверяется, что делать если передали маленькое изображение
+  // и если убрать эту проверку, то оно увеличится во весь фрейм
+  // это может ухудшить качество, поэтому оставим эту проверку
+  if (image.width >= frame.width || image.height >= frame.height) {
+    if (frame.width / ratio <= frame.height) {
       newSize.width = frame.width;
-      newSize.height = frame.height;
+      newSize.height = frame.width / ratio;
     } else {
-      newSize.width = image.width;
-      newSize.height = image.height;
+      newSize.width = frame.height * ratio;
+      newSize.height = frame.height;
     }
-  } else if (image.width > image.height) {
-    const ratio = image.width / image.height;
-    if (frame.width > frame.height) {
-      if (image.width > frame.width && image.height > frame.height) {
-
-      } else {
-
-      }
-    }
-
+  } else {
+    newSize.width = image.width;
+    newSize.height = image.height;
   }
-
 
   return newSize;
 };
