@@ -7,6 +7,22 @@ import gameData from '../data/game-data';
 import checkAnswer from '../utils/check-answer';
 import updateInfo from '../utils/update-info';
 import {updateStatistics} from './stats-screen';
+import resize from '../utils/resize';
+
+const FRAME1 = {
+  width: `468`,
+  height: `458`,
+};
+
+const FRAME2 = {
+  width: `705`,
+  height: `455`,
+};
+
+const FRAME3 = {
+  width: `304`,
+  height: `455`,
+};
 
 const getGameTemplate = (data) => {
   if (data.type === `twoOfTwo` || data.type === `oneOfOne`) {
@@ -15,7 +31,7 @@ const getGameTemplate = (data) => {
       <form class="game__content ${data.type === `oneOfOne` ? `game__content--wide` : ``}">
         ${[...data.options].map((option, index) => `
           <div class="game__option">
-            <img src="${option.src}" alt="Option ${index + 1}" width="468" height="458">
+            <img src="${option.src}" alt="Option ${index + 1}" width="${resize(data.type === `twoOfTwo` ? FRAME1 : FRAME2, {width: option.width, height: option.height}).width}" height="${resize(data.type === `twoOfTwo` ? FRAME1 : FRAME2, {width: option.width, height: option.height}).height}">
             <label class="game__answer game__answer--photo">
               <input class="visually-hidden" name="question${index + 1}" type="radio" value="${option.labels[0].value}">
               <span>${option.labels[0].name}</span>
@@ -45,7 +61,7 @@ const getGameTemplate = (data) => {
     <p class="game__task">${data.title}</p>
     <form class="game__content ${data.type === `oneOfThree` ? `game__content--triple` : ``}">
       ${[...data.options].map((option, index) => `
-        <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" width="304" height="455" data-answer="${option.labels[0].value}"></div>
+        <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" width="${resize(FRAME3, {width: option.width, height: option.height}).width}" height="${resize(FRAME3, {width: option.width, height: option.height}).height}" data-answer="${option.labels[0].value}"></div>
       `).join(``)}
     </form>
       <ul class="stats">
