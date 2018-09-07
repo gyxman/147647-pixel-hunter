@@ -9,19 +9,18 @@ import updateInfo from '../utils/update-info';
 import {updateStatistics} from './stats-screen';
 import resize from '../utils/resize';
 
-const FRAME1 = {
-  width: `468`,
-  height: `458`,
+const getFrame = (element) => {
+  return {
+    'width': element.getBoundingClientRect().width,
+    'height': element.getBoundingClientRect().height,
+  };
 };
 
-const FRAME2 = {
-  width: `705`,
-  height: `455`,
-};
-
-const FRAME3 = {
-  width: `304`,
-  height: `455`,
+const setImagesSize = (frame, images) => {
+  images.forEach((img) => {
+    img.setAttribute(`width`, resize(frame, {'width': img.offsetWidth, 'height': img.offsetHeight}).width);
+    img.setAttribute(`height`, resize(frame, {'width': img.offsetWidth, 'height': img.offsetHeight}).height);
+  });
 };
 
 export const getGameTemplate = (data) => {
@@ -31,7 +30,7 @@ export const getGameTemplate = (data) => {
       <form class="game__content ${data.type === `oneOfOne` ? `game__content--wide` : ``}">
         ${[...data.options].map((option, index) => `
           <div class="game__option">
-            <img src="${option.src}" alt="Option ${index + 1}" width="${resize(data.type === `twoOfTwo` ? FRAME1 : FRAME2, {width: option.width, height: option.height}).width}" height="${resize(data.type === `twoOfTwo` ? FRAME1 : FRAME2, {width: option.width, height: option.height}).height}">
+            <img src="${option.src}" alt="Option ${index + 1}">
             <label class="game__answer game__answer--photo">
               <input class="visually-hidden" name="question${index + 1}" type="radio" value="${option.labels[0].value}">
               <span>${option.labels[0].name}</span>
@@ -61,7 +60,7 @@ export const getGameTemplate = (data) => {
     <p class="game__task">${data.title}</p>
     <form class="game__content ${data.type === `oneOfThree` ? `game__content--triple` : ``}">
       ${[...data.options].map((option, index) => `
-        <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" width="${resize(FRAME3, {width: option.width, height: option.height}).width}" height="${resize(FRAME3, {width: option.width, height: option.height}).height}" data-answer="${option.labels[0].value}"></div>
+        <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" data-answer="${option.labels[0].value}"></div>
       `).join(``)}
     </form>
       <ul class="stats">
@@ -101,9 +100,13 @@ export const changeLevel = (element) => {
   gameContent.innerHTML = ``;
   gameContent.innerHTML = element;
 
+  const variants = gameElement.querySelectorAll(`.game__option`);
+  const frame = getFrame(variants[0]); // размеры рамки получаются корректно
+
+  setImagesSize(frame, gameElement.querySelectorAll(`.game img`));
+
   if (levelsData[gameData.level].type === `twoOfTwo`) {
     const radioElements = gameElement.querySelectorAll(`.visually-hidden`);
-    const variants = gameElement.querySelectorAll(`.game__option`);
 
     radioElements.forEach((radio) => {
       radio.addEventListener(`change`, ()=> {
