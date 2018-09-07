@@ -11,15 +11,15 @@ import resize from '../utils/resize';
 
 const getFrame = (element) => {
   return {
-    'width': element.getBoundingClientRect().width,
-    'height': element.getBoundingClientRect().height,
+    'width': element.clientWidth,
+    'height': element.clientHeight,
   };
 };
 
-const setImagesSize = (frame, images) => {
-  images.forEach((img) => {
-    img.setAttribute(`width`, resize(frame, {'width': img.offsetWidth, 'height': img.offsetHeight}).width);
-    img.setAttribute(`height`, resize(frame, {'width': img.offsetWidth, 'height': img.offsetHeight}).height);
+const setImagesSize = (frame, images, data) => {
+  images.forEach((img, index) => {
+    img.setAttribute(`width`, resize(frame, {'width': data.options[index].width, 'height': data.options[index].height}).width);
+    img.setAttribute(`height`, resize(frame, {'width': data.options[index].width, 'height': data.options[index].height}).height);
   });
 };
 
@@ -101,9 +101,11 @@ export const changeLevel = (element) => {
   gameContent.innerHTML = element;
 
   const variants = gameElement.querySelectorAll(`.game__option`);
-  const frame = getFrame(variants[0]); // размеры рамки получаются корректно
 
-  setImagesSize(frame, gameElement.querySelectorAll(`.game img`));
+  window.setTimeout(() => {
+    const frame = getFrame(variants[0]);
+    setImagesSize(frame, gameElement.querySelectorAll(`.game img`), levelsData[gameData.level]);
+  }, 0);
 
   if (levelsData[gameData.level].type === `twoOfTwo`) {
     const radioElements = gameElement.querySelectorAll(`.visually-hidden`);
