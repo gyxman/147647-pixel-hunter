@@ -24,7 +24,7 @@ const FRAME3 = {
   height: `455`,
 };
 
-const getGameTemplate = (data) => {
+export const getGameTemplate = (data) => {
   if (data.type === `twoOfTwo` || data.type === `oneOfOne`) {
     return `
       <p class="game__task">${data.title}</p>
@@ -89,7 +89,7 @@ const template = (data, initialData) => `
 `;
 
 
-const gameElement = getElementFromTemplate(template(levelsData[gameData.level], gameData));
+export const gameElement = getElementFromTemplate(template(levelsData[gameData.level], gameData));
 
 const backButton = gameElement.querySelector(`.back`);
 
@@ -97,7 +97,7 @@ goHome(backButton);
 
 const gameContent = gameElement.querySelector(`.game`);
 
-const changeLevel = (element) => {
+export const changeLevel = (element) => {
   gameContent.innerHTML = ``;
   gameContent.innerHTML = element;
 
@@ -174,7 +174,3 @@ const updateHeader = (initialData) => {
     updateStatistics(gameData);
   }
 };
-
-changeLevel(getGameTemplate(levelsData[gameData.level]));
-
-export default gameElement;
