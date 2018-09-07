@@ -7,15 +7,30 @@ import gameData from '../data/game-data';
 import checkAnswer from '../utils/check-answer';
 import updateInfo from '../utils/update-info';
 import {updateStatistics} from './stats-screen';
+import resize from '../utils/resize';
 
-const getGameTemplate = (data) => {
+const getFrame = (element) => {
+  return {
+    'width': element.clientWidth,
+    'height': element.clientHeight,
+  };
+};
+
+const setImagesSize = (frame, images, data) => {
+  images.forEach((img, index) => {
+    img.setAttribute(`width`, resize(frame, {'width': data.options[index].width, 'height': data.options[index].height}).width);
+    img.setAttribute(`height`, resize(frame, {'width': data.options[index].width, 'height': data.options[index].height}).height);
+  });
+};
+
+export const getGameTemplate = (data) => {
   if (data.type === `twoOfTwo` || data.type === `oneOfOne`) {
     return `
       <p class="game__task">${data.title}</p>
       <form class="game__content ${data.type === `oneOfOne` ? `game__content--wide` : ``}">
         ${[...data.options].map((option, index) => `
           <div class="game__option">
-            <img src="${option.src}" alt="Option ${index + 1}" width="468" height="458">
+            <img src="${option.src}" alt="Option ${index + 1}">
             <label class="game__answer game__answer--photo">
               <input class="visually-hidden" name="question${index + 1}" type="radio" value="${option.labels[0].value}">
               <span>${option.labels[0].name}</span>
@@ -45,7 +60,7 @@ const getGameTemplate = (data) => {
     <p class="game__task">${data.title}</p>
     <form class="game__content ${data.type === `oneOfThree` ? `game__content--triple` : ``}">
       ${[...data.options].map((option, index) => `
-        <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" width="304" height="455" data-answer="${option.labels[0].value}"></div>
+        <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" data-answer="${option.labels[0].value}"></div>
       `).join(``)}
     </form>
       <ul class="stats">
@@ -73,7 +88,7 @@ const template = (data, initialData) => `
 `;
 
 
-const gameElement = getElementFromTemplate(template(levelsData[gameData.level], gameData));
+export const gameElement = getElementFromTemplate(template(levelsData[gameData.level], gameData));
 
 const backButton = gameElement.querySelector(`.back`);
 
@@ -81,13 +96,19 @@ goHome(backButton);
 
 const gameContent = gameElement.querySelector(`.game`);
 
-const changeLevel = (element) => {
+export const changeLevel = (element) => {
   gameContent.innerHTML = ``;
   gameContent.innerHTML = element;
 
+  const variants = gameElement.querySelectorAll(`.game__option`);
+
+  window.setTimeout(() => {
+    const frame = getFrame(variants[0]);
+    setImagesSize(frame, gameElement.querySelectorAll(`.game img`), levelsData[gameData.level]);
+  }, 0);
+
   if (levelsData[gameData.level].type === `twoOfTwo`) {
     const radioElements = gameElement.querySelectorAll(`.visually-hidden`);
-    const variants = gameElement.querySelectorAll(`.game__option`);
 
     radioElements.forEach((radio) => {
       radio.addEventListener(`change`, ()=> {
@@ -158,7 +179,3 @@ const updateHeader = (initialData) => {
     updateStatistics(gameData);
   }
 };
-
-changeLevel(getGameTemplate(levelsData[gameData.level]));
-
-export default gameElement;

@@ -1,9 +1,10 @@
 import {changeScreen, getElementFromTemplate} from '../utils/util';
 import rulesData from '../data/rules-data';
 import getHeader from '../parts/header';
-import gameScreen from './game-screen';
+import {gameElement, changeLevel, getGameTemplate} from './game-screen';
 import goHome from '../utils/back-intro';
 import gameData from '../data/game-data';
+import levelsData from '../data/levels-data';
 
 const template = (data, initialData) => `
   <header class="header">
@@ -44,7 +45,8 @@ inputName.addEventListener(`keyup`, ()=> {
 form.addEventListener(`submit`, (e)=> {
   e.preventDefault();
   gameData.userName = inputName.value;
-  changeScreen(gameScreen);
+  changeScreen(gameElement);
+  changeLevel(getGameTemplate(levelsData[gameData.level]));
 });
 
 export default rulesElement;
