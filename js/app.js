@@ -5,6 +5,7 @@ import {changeScreen} from './utils/util';
 import IntroData from './data/intro-data';
 import GreetingData from './data/greeting-data';
 import RulesData from './data/rules-data';
+import GameData from './data/game-data';
 
 export default class Application {
   static showIntro() {
@@ -24,10 +25,13 @@ export default class Application {
   }
 
   static showRules() {
-    const rules = new RulesView(RulesData);
+    const rules = new RulesView(RulesData, GameData);
     changeScreen(rules.element);
     rules.onClick = (userName) => {
       console.log(userName);
+    };
+    rules.onBack = () => {
+      Application.showIntro();
     };
   }
 }
