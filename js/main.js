@@ -1,8 +1,7 @@
-import {changeScreen} from './utils/util';
-import introScreen from './screens/intro-screen';
+import Application from './app';
 import footer from './parts/footer';
 
-changeScreen(introScreen);
+Application.showIntro();
 
 const footerElement = document.querySelector(`#footer`);
 footerElement.appendChild(footer);
