@@ -14,7 +14,7 @@ export default class GameView extends AbstractView {
         ${getHeader(this.initialData)}
       </header>
       <section class="game">
-
+        ${this.partTemplate}
       </section>
     `;
   }
