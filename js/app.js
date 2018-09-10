@@ -3,7 +3,8 @@ import GreetingView from './views/greeting-view';
 import RulesView from './views/rules-view';
 import GameView from './views/game-view';
 import StatsView from './views/stats-view';
-import {changeScreen, getFrame, saveResult, setImagesSize} from './utils/util';
+import {changeScreen, getFrame, saveResult, setImagesSize, updateHeader} from './utils/util';
+import updateInfo from './utils/update-info';
 import introData from './data/intro-data';
 import greetingData from './data/greeting-data';
 import rulesData from './data/rules-data';
@@ -46,12 +47,19 @@ export default class Application {
     const variants = game.element.querySelectorAll(`.game__option`);
     const frame = getFrame(variants[0]);
     setImagesSize(frame, game.element.querySelectorAll(`.game img`), levelsData[gameData.level]);
+    game.setStats();
 
     game.onBack = () => {
       Application.showIntro();
     };
     game.onNext = (answers) => {
       saveResult(answers);
+      updateInfo();
+      updateHeader(gameData);
+      if (gameData.lives === 0) {
+        Application.showStats();
+        return;
+      }
 
       if (gameData.level < levelsData.length - 1) {
         gameData.level += 1;

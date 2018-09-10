@@ -1,6 +1,7 @@
 import resize from './resize';
 import gameData from '../data/game-data';
 import checkAnswer from './check-answer';
+import getHeader from "../parts/header";
 
 export const getElementFromTemplate = (template, tagName = `div`, tagClass) => {
   const wrapper = document.createElement(tagName);
@@ -32,4 +33,10 @@ export const setImagesSize = (frame, images, data) => {
 
 export const saveResult = (array) => {
   gameData.answers.push({answer: checkAnswer(array), time: `normal`});
+};
+
+export const updateHeader = (initialData) => {
+  const header = document.querySelector(`.header`);
+  header.innerHTML = ``;
+  header.innerHTML = `${getHeader(initialData)}`;
 };

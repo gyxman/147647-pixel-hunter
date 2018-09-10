@@ -39,16 +39,7 @@ export default class GameView extends AbstractView {
           `).join(``)}
         </form>
         <ul class="stats">
-          <li class="stats__result stats__result--wrong"></li>
-          <li class="stats__result stats__result--slow"></li>
-          <li class="stats__result stats__result--fast"></li>
-          <li class="stats__result stats__result--correct"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--unknown"></li>
+          
         </ul>
       `;
     }
@@ -60,18 +51,27 @@ export default class GameView extends AbstractView {
         `).join(``)}
       </form>
         <ul class="stats">
-          <li class="stats__result stats__result--wrong"></li>
-          <li class="stats__result stats__result--slow"></li>
-          <li class="stats__result stats__result--fast"></li>
-          <li class="stats__result stats__result--correct"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--unknown"></li>
+          
         </ul>
     `;
+  }
+
+  setStats() {
+    const stats = this.element.querySelector(`.stats`);
+    const data = this.initialData;
+    [...this.level].map((el, index) => {
+      const element = document.createElement(`li`);
+      if (data.answers[index]) {
+        if (data.answers[index].time === `normal` && data.answers[index].answer) {
+          element.classList.add(`stats__result`, `stats__result--correct`);
+        } else if (data.answers[index].time === `normal` && !data.answers[index].answer) {
+          element.classList.add(`stats__result`, `stats__result--wrong`);
+        }
+      } else {
+        element.classList.add(`stats__result`, `stats__result--unknown`);
+      }
+      stats.appendChild(element);
+    });
   }
 
   bind() {
