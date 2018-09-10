@@ -54,6 +54,6 @@ export default class RulesView extends AbstractView {
     });
   }
 
-  onClick(userName) {}
+  onClick() {}
   onBack() {}
 }

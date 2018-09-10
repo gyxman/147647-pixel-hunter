@@ -24,7 +24,7 @@ export default class AbstractView {
     return getElementFromTemplate(this.template);
   }
 
-  bind(element) {
+  bind() {
     throw new Error(`Метод bind должен быть переопределен`);
   }
 }
