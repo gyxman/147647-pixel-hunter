@@ -1,6 +1,5 @@
 import getHeader from '../parts/header';
 import AbstractView from './abstract-view';
-import rulesElement from '../screens/rules-screen';
 
 export default class RulesView extends AbstractView {
   constructor(level, initialData) {

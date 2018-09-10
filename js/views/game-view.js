@@ -87,12 +87,28 @@ export default class GameView extends AbstractView {
           }
         });
       });
+    } else if (this.level[this.initialData.level].type === `oneOfOne`) {
+      const nextButtons = this.element.querySelectorAll(`.game__answer`);
+      nextButtons.forEach((button) => {
+        button.addEventListener(`click`, (event)=> {
+          event.preventDefault();
+          const selectedElements = event.currentTarget.querySelectorAll(`.visually-hidden`);
+          this.onNext([...selectedElements].map((selectedRadio)=> selectedRadio.value));
+        });
+      });
+    } else {
+      const nextButtons = this.element.querySelectorAll(`.game__option`);
+      nextButtons.forEach((button)=> {
+        button.addEventListener(`click`, ()=> {
+          const selectedElements = event.currentTarget.querySelectorAll(`img`);
+          this.onNext([...selectedElements].map((selectedRadio)=> selectedRadio.getAttribute(`data-answer`)));
+        });
+      });
     }
 
     const backButton = this.element.querySelector(`.back`);
     backButton.addEventListener(`click`, () => {
-      console.log(this.element.querySelectorAll(`.visually-hidden:checked`).length)
-      //this.onBack();
+      this.onBack();
     });
   }
 

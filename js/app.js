@@ -2,16 +2,17 @@ import IntroView from './views/intro-view';
 import GreetingView from './views/greeting-view';
 import RulesView from './views/rules-view';
 import GameView from './views/game-view';
+import StatsView from './views/stats-view';
 import {changeScreen, getFrame, saveResult, setImagesSize} from './utils/util';
-import IntroData from './data/intro-data';
-import GreetingData from './data/greeting-data';
-import RulesData from './data/rules-data';
-import GameData from './data/game-data';
-import LevelsData from './data/levels-data';
+import introData from './data/intro-data';
+import greetingData from './data/greeting-data';
+import rulesData from './data/rules-data';
+import gameData from './data/game-data';
+import levelsData from './data/levels-data';
 
 export default class Application {
   static showIntro() {
-    const intro = new IntroView(IntroData);
+    const intro = new IntroView(introData);
     changeScreen(intro.element);
     intro.onClick = () => {
       Application.showGreeting();
@@ -19,7 +20,7 @@ export default class Application {
   }
 
   static showGreeting() {
-    const greeting = new GreetingView(GreetingData);
+    const greeting = new GreetingView(greetingData);
     changeScreen(greeting.element);
     greeting.onClick = () => {
       Application.showRules();
@@ -27,10 +28,10 @@ export default class Application {
   }
 
   static showRules() {
-    const rules = new RulesView(RulesData, GameData);
+    const rules = new RulesView(rulesData, gameData);
     changeScreen(rules.element);
     rules.onClick = (userName) => {
-      GameData.userName = userName;
+      gameData.userName = userName;
       Application.showGame();
     };
     rules.onBack = () => {
@@ -39,12 +40,12 @@ export default class Application {
   }
 
   static showGame() {
-    const game = new GameView(LevelsData, GameData);
+    const game = new GameView(levelsData, gameData);
     changeScreen(game.element);
 
     const variants = game.element.querySelectorAll(`.game__option`);
     const frame = getFrame(variants[0]);
-    setImagesSize(frame, game.element.querySelectorAll(`.game img`), LevelsData[GameData.level]);
+    setImagesSize(frame, game.element.querySelectorAll(`.game img`), levelsData[gameData.level]);
 
     game.onBack = () => {
       Application.showIntro();
@@ -52,12 +53,21 @@ export default class Application {
     game.onNext = (answers) => {
       saveResult(answers);
 
-      if (GameData.level < LevelsData.length - 1) {
-        GameData.level += 1;
+      if (gameData.level < levelsData.length - 1) {
+        gameData.level += 1;
         Application.showGame();
       } else {
-        console.log(1);
+        Application.showStats();
       }
+    };
+  }
+
+  static showStats() {
+    const stats = new StatsView(gameData);
+    changeScreen(stats.element);
+
+    stats.onBack = () => {
+      Application.showIntro();
     };
   }
 }

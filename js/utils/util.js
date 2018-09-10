@@ -1,5 +1,5 @@
 import resize from './resize';
-import GameData from '../data/game-data';
+import gameData from '../data/game-data';
 import checkAnswer from './check-answer';
 
 export const getElementFromTemplate = (template, tagName = `div`, tagClass) => {
@@ -31,5 +31,5 @@ export const setImagesSize = (frame, images, data) => {
 };
 
 export const saveResult = (array) => {
-  GameData.answers.push({answer: checkAnswer(array), time: `normal`});
+  gameData.answers.push({answer: checkAnswer(array), time: `normal`});
 };
