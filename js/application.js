@@ -1,15 +1,16 @@
 import IntroView from './views/intro-view';
 import GreetingView from './views/greeting-view';
 import RulesView from './views/rules-view';
-import GameView from './views/game-view';
 import StatsView from './views/stats-view';
-import {changeScreen, saveResult, updateHeader} from './utils/util';
-import updateInfo from './utils/update-info';
+import {changeScreen, saveResult} from './utils/util';
 import introData from './data/intro-data';
 import greetingData from './data/greeting-data';
 import rulesData from './data/rules-data';
 import gameData from './data/game-data';
 import levelsData from './data/levels-data';
+import GameModel from './game-model';
+import GameScreen from './game-screen';
+import updateInfo from './utils/update-info';
 
 export default class Application {
   static showIntro() {
@@ -41,31 +42,28 @@ export default class Application {
   }
 
   static showGame() {
-    const game = new GameView(levelsData, gameData);
-    changeScreen(game.element);
+    const gameModel = new GameModel(gameData.userName);
+    const gameScreen = new GameScreen(gameModel);
+    changeScreen(gameScreen.element);
+    gameScreen.startGame();
 
-    game.setSizeImages();
-    game.setStats();
-
-    game.onBack = () => {
+    gameScreen.onBack = () => {
       Application.showIntro();
     };
-    game.onNext = (answers) => {
-      saveResult(answers);
-      updateInfo();
-      updateHeader(gameData);
-      if (gameData.lives === 0) {
-        Application.showStats();
-        return;
-      }
-
-      if (gameData.level < levelsData.length - 1) {
-        gameData.level += 1;
-        Application.showGame();
-      } else {
-        Application.showStats();
-      }
-    };
+    // gameScreen.onNext = (answers) => {
+    //   saveResult(answers);
+    //   if (gameData.lives === 0) {
+    //     Application.showStats();
+    //     return;
+    //   }
+    //
+    //   if (gameData.level < levelsData.length - 1) {
+    //     gameData.level += 1;
+    //     Application.showGame();
+    //   } else {
+    //     Application.showStats();
+    //   }
+    // };
   }
 
   static showStats() {

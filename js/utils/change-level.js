@@ -1,12 +1,12 @@
-export const changeScreen = (game, screen) => {
-  if (typeof screen !== `number`) {
+export const changeLevel = (game, level) => {
+  if (typeof level !== `number`) {
     throw new Error(`Screen should be of type number`);
   }
-  if (screen < 0) {
+  if (level < 0) {
     throw new Error(`Screen should be negative value`);
   }
   const newGame = Object.assign({}, game, {
-    screen,
+    level,
   });
   return newGame;
 };

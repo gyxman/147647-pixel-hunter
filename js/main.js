@@ -1,4 +1,4 @@
-import Application from './app';
+import Application from './application';
 import footer from './parts/footer';
 
 Application.showIntro();

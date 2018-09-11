@@ -1,18 +1,17 @@
-import getHeader from '../parts/header';
 import AbstractView from './abstract-view';
+import HeaderView from './header-view';
 
 export default class RulesView extends AbstractView {
   constructor(level, initialData) {
     super();
     this.level = level;
     this.initialData = initialData;
+    this.header = new HeaderView(this.initialData);
   }
 
   get template() {
     return `
-      <header class="header">
-        ${getHeader(this.initialData)}
-      </header>
+      ${this.header.template}
       <section class="rules">
         <h2 class="rules__title">${this.level.title}</h2>
         <ul class="rules__description">
@@ -33,7 +32,6 @@ export default class RulesView extends AbstractView {
     const form = this.element.querySelector(`.rules__form`);
     const submitButton = this.element.querySelector(`.rules__button`);
     const inputName = this.element.querySelector(`.rules__input`);
-    const backButton = this.element.querySelector(`.back`);
 
     inputName.addEventListener(`keyup`, () => {
       if (inputName.value.length > 0) {
@@ -49,6 +47,7 @@ export default class RulesView extends AbstractView {
       this.onClick(userName);
     });
 
+    const backButton = this.element.querySelector(`.back`);
     backButton.addEventListener(`click`, () => {
       this.onBack();
     });

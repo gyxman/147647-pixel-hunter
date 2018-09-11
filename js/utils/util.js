@@ -40,3 +40,8 @@ export const updateHeader = (initialData) => {
   header.innerHTML = ``;
   header.innerHTML = `${getHeader(initialData)}`;
 };
+
+export const tick = (game) => {
+  const timeLeft = game.remainingTime - 1;
+  return Object.assign({}, game, {remainingTime: timeLeft});
+};
