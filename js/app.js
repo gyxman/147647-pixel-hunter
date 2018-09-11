@@ -3,7 +3,7 @@ import GreetingView from './views/greeting-view';
 import RulesView from './views/rules-view';
 import GameView from './views/game-view';
 import StatsView from './views/stats-view';
-import {changeScreen, getFrame, saveResult, setImagesSize, updateHeader} from './utils/util';
+import {changeScreen, saveResult, updateHeader} from './utils/util';
 import updateInfo from './utils/update-info';
 import introData from './data/intro-data';
 import greetingData from './data/greeting-data';
@@ -44,9 +44,7 @@ export default class Application {
     const game = new GameView(levelsData, gameData);
     changeScreen(game.element);
 
-    const variants = game.element.querySelectorAll(`.game__option`);
-    const frame = getFrame(variants[0]);
-    setImagesSize(frame, game.element.querySelectorAll(`.game img`), levelsData[gameData.level]);
+    game.setSizeImages();
     game.setStats();
 
     game.onBack = () => {

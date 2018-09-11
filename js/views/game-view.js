@@ -1,5 +1,6 @@
 import getHeader from '../parts/header';
 import AbstractView from './abstract-view';
+import {getFrame, setImagesSize} from '../utils/util';
 
 export default class GameView extends AbstractView {
   constructor(level, initialData) {
@@ -72,6 +73,12 @@ export default class GameView extends AbstractView {
       }
       stats.appendChild(element);
     });
+  }
+
+  setSizeImages() {
+    const variants = this.element.querySelectorAll(`.game__option`);
+    const frame = getFrame(variants[0]);
+    setImagesSize(frame, this.element.querySelectorAll(`.game img`), this.level[this.initialData.level]);
   }
 
   bind() {
