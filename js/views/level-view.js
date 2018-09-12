@@ -1,5 +1,6 @@
 import AbstractView from './abstract-view';
-import {getFrame, setImagesSize} from "../utils/util";
+import {getFrame, setImagesSize} from '../utils/util';
+import checkAnswerType from '../utils/check-answer-type';
 
 export default class LevelView extends AbstractView {
   constructor(level, initialData) {
@@ -58,15 +59,17 @@ export default class LevelView extends AbstractView {
     const data = this.initialData;
     [...this.level].map((el, index) => {
       const element = document.createElement(`li`);
-      if (data.answers[index]) {
-        if (data.answers[index].time === `normal` && data.answers[index].answer) {
-          element.classList.add(`stats__result`, `stats__result--correct`);
-        } else if (data.answers[index].time === `normal` && !data.answers[index].answer) {
-          element.classList.add(`stats__result`, `stats__result--wrong`);
-        }
-      } else {
-        element.classList.add(`stats__result`, `stats__result--unknown`);
-      }
+      const additionalClass = checkAnswerType(data.answers[index]);
+      element.classList.add(`stats__result`, additionalClass);
+      // if (data.answers[index]) {
+      //   if (data.answers[index].time === `normal` && data.answers[index].answer) {
+      //     element.classList.add(`stats__result`, `stats__result--correct`);
+      //   } else if (data.answers[index].time === `normal` && !data.answers[index].answer) {
+      //     element.classList.add(`stats__result`, `stats__result--wrong`);
+      //   }
+      // } else {
+      //   element.classList.add(`stats__result`, `stats__result--unknown`);
+      // }
       stats.appendChild(element);
     });
   }

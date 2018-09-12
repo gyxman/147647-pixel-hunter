@@ -28,8 +28,8 @@ export default class GameModel {
     this._state = Object.assign({}, this._state, {remainingTime: INITIAL_GAME.remainingTime});
   }
 
-  onAnswer(answers) {
-    this._state = saveResult(this._state, answers);
+  onAnswer(answers, time) {
+    this._state = saveResult(this._state, answers, time);
     this._state = countLives(this._state, checkAnswer(this._state, answers) ? this._state.lives : this._state.lives - 1);
     this._state = changeLevel(this._state, this._state.level + 1);
   }

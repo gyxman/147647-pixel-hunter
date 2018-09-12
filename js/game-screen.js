@@ -16,6 +16,8 @@ export default class GameScreen {
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
 
+    this.time = this.header.element.querySelector(`.game__timer`);
+
     this._interval = null;
   }
 
@@ -27,14 +29,13 @@ export default class GameScreen {
     this.content.setSizeImages();
     this.content.setStats();
     this.header.onBack = () => this.onBack();
-    this.content.onNext = (answers) => this.onAnswer(answers);
+    this.content.onNext = (answers, time) => this.onAnswer(answers, time);
 
     this._interval = setInterval(() => {
       this.model.tick();
+      this.updateHeader();
       if (!this.model.state.remainingTime) {
         this.onAnswer();
-      } else {
-        this.updateHeader();
       }
       if (this.model.state.remainingTime <= BLINK_TIME) {
         this.header.blink(true);
@@ -57,6 +58,7 @@ export default class GameScreen {
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
     this.header.onBack = () => this.onBack();
+    this.time = this.header.element.querySelector(`.game__timer`);
   }
 
   changeLevel() {
@@ -73,7 +75,8 @@ export default class GameScreen {
   }
 
   onAnswer(answers = false) {
-    this.model.onAnswer(answers);
+    const time = this.time.innerHTML;
+    this.model.onAnswer(answers, time);
 
     this.resetTimer();
     this.updateHeader();

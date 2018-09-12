@@ -30,8 +30,15 @@ export const setImagesSize = (frame, images, data) => {
   });
 };
 
-export const saveResult = (game, array) => {
-  const answers = [...game.answers, {answer: checkAnswer(game, array), time: `normal`}];
+export const saveResult = (game, array, time) => {
+  if (time > 20) {
+    time = `fast`;
+  } else if (time < 10) {
+    time = `slow`;
+  } else {
+    time = `normal`;
+  }
+  const answers = [...game.answers, {answer: checkAnswer(game, array), time}];
   return Object.assign({}, game, {answers});
 };
 
