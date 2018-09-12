@@ -56,7 +56,6 @@ export default class LevelView extends AbstractView {
   setStats() {
     const stats = this.element.querySelector(`.stats`);
     const data = this.initialData;
-    console.log(data);
     [...this.level].map((el, index) => {
       const element = document.createElement(`li`);
       if (data.answers[index]) {

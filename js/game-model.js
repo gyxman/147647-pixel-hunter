@@ -8,10 +8,10 @@ import {changeLevel} from './utils/change-level';
 const getLevel = (state) => levelsData[`${state.level}`];
 
 export default class GameModel {
-  constructor(playerName) {
-    this.playerName = playerName;
-    this.restart();
+  constructor(userName) {
+    this.userName = userName;
     this.levelsData = levelsData;
+    this.restart();
   }
 
   get state() {
@@ -35,7 +35,10 @@ export default class GameModel {
   }
 
   onAnswer(answers) {
+    console.log(answers)
+    this._state = checkAnswer(this._state, answers);
     this._state = countLives(this._state, checkAnswer(answers) ? this._state.lives : this._state.lives - 1);
     this._state = changeLevel(this._state, this._state.level + 1);
+    console.log(this._state);
   }
 }

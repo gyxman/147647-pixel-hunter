@@ -2,15 +2,13 @@ import IntroView from './views/intro-view';
 import GreetingView from './views/greeting-view';
 import RulesView from './views/rules-view';
 import StatsView from './views/stats-view';
-import {changeScreen, saveResult} from './utils/util';
+import {changeScreen} from './utils/util';
 import introData from './data/intro-data';
 import greetingData from './data/greeting-data';
 import rulesData from './data/rules-data';
-import gameData from './data/game-data';
-import levelsData from './data/levels-data';
+import {INITIAL_GAME} from './data/initial-data';
 import GameModel from './game-model';
 import GameScreen from './game-screen';
-import updateInfo from './utils/update-info';
 
 export default class Application {
   static showIntro() {
@@ -30,19 +28,18 @@ export default class Application {
   }
 
   static showRules() {
-    const rules = new RulesView(rulesData, gameData);
+    const rules = new RulesView(rulesData, INITIAL_GAME);
     changeScreen(rules.element);
     rules.onClick = (userName) => {
-      gameData.userName = userName;
-      Application.showGame();
+      Application.showGame(userName);
     };
     rules.onBack = () => {
       Application.showIntro();
     };
   }
 
-  static showGame() {
-    const gameModel = new GameModel(gameData.userName);
+  static showGame(userName) {
+    const gameModel = new GameModel(userName);
     const gameScreen = new GameScreen(gameModel);
     changeScreen(gameScreen.element);
     gameScreen.startGame();

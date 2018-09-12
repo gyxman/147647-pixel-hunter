@@ -2,7 +2,6 @@ import Application from './application';
 import HeaderView from './views/header-view';
 import LevelView from './views/level-view';
 import levelsData from './data/levels-data';
-import gameData from './data/game-data';
 import {saveResult} from './utils/util';
 
 const TIMER_INTERVAL = 1000;
@@ -12,18 +11,13 @@ export default class GameScreen {
   constructor(model) {
     this.model = model;
     this.header = new HeaderView(this.model.state);
-    this.content = new LevelView(levelsData, gameData);
-    this.content.setSizeImages();
-    this.content.setStats();
+    this.content = new LevelView(levelsData, this.model.state);
 
     this.root = document.createElement(`div`);
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
 
     this._interval = null;
-
-    this.header.onBack = () => this.onBack();
-    this.content.onNext = (answers) => this.onAnswer(answers);
   }
 
   get element() {
@@ -31,6 +25,11 @@ export default class GameScreen {
   }
 
   startGame() {
+    this.content.setSizeImages();
+    this.content.setStats();
+    this.header.onBack = () => this.onBack();
+    this.content.onNext = (answers) => this.onAnswer(answers);
+
     this._interval = setInterval(() => {
       this.model.tick();
       if (!this.model.state.remainingTime) {
@@ -64,9 +63,9 @@ export default class GameScreen {
   changeLevel() {
     this.updateHeader();
 
-    const level = new LevelView(levelsData, gameData);
+    const level = new LevelView(levelsData, this.model.state);
     this.changeContentView(level);
-    level.focus();
+    this.startGame();
   }
 
   changeContentView(view) {
@@ -80,18 +79,14 @@ export default class GameScreen {
 
     this.resetTimer();
     this.updateHeader();
-    //this.updateGame();
 
-    if (gameData.lives === 0) {
+    if (this.model.state.lives === 0) {
       Application.showStats();
       return;
     }
 
-    console.log(this.model.state)
-
-    if (gameData.level < levelsData.length - 1) {
-      //gameData.level += 1;
-      Application.showGame();
+    if (this.model.state.level < levelsData.length - 1) {
+      this.changeLevel();
     } else {
       Application.showStats();
     }

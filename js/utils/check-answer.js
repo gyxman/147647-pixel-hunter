@@ -1,9 +1,9 @@
-import gameData from '../data/game-data';
 import levelsData from '../data/levels-data';
 
-const checkAnswer = (answers) => {
+const checkAnswer = (game, answers) => {
+  console.log(game);
   let isRight = true;
-  const currentAnswers = levelsData[gameData.level].options.map((option) => {
+  const currentAnswers = levelsData[game.level].options.map((option) => {
     return option.answer;
   });
 
@@ -14,10 +14,10 @@ const checkAnswer = (answers) => {
   });
 
   if (isRight) {
-    gameData.rightsAnswers += 1;
+    //gameData.rightsAnswers += 1;
   }
 
-  return isRight;
+  return Object.assign({}, game, {answers});
 };
 
 export default checkAnswer;
