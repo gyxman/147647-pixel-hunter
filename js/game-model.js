@@ -22,10 +22,6 @@ export default class GameModel {
     this._state = INITIAL_GAME;
   }
 
-  getCurrentLevel() {
-    return getLevel(this._state);
-  }
-
   tick() {
     this._state = tick(this._state);
   }

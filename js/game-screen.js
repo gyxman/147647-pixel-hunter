@@ -32,7 +32,7 @@ export default class GameScreen {
     this._interval = setInterval(() => {
       this.model.tick();
       if (!this.model.state.remainingTime) {
-
+        this.onAnswer();
       } else {
         this.updateHeader();
       }
@@ -72,7 +72,7 @@ export default class GameScreen {
     this.content = view;
   }
 
-  onAnswer(answers) {
+  onAnswer(answers = false) {
     this.model.onAnswer(answers);
 
     this.resetTimer();
@@ -83,7 +83,7 @@ export default class GameScreen {
       return;
     }
 
-    if (this.model.state.level < levelsData.length - 1) {
+    if (this.model.state.level < levelsData.length) {
       this.changeLevel();
     } else {
       this.onEndGame(this.model.state);

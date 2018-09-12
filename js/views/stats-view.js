@@ -1,10 +1,16 @@
 import getHeader from '../parts/header';
 import AbstractView from './abstract-view';
 
+const rightAnswers = (data) => {
+  const array = [...data].map((item) => item.answer ? 1 : 0);
+  return array.reduce((sum, item) => sum + item);
+};
+
 export default class StatsView extends AbstractView {
   constructor(initialData) {
     super();
     this.initialData = initialData;
+    this.rightAnswers = rightAnswers(initialData.answers);
   }
 
   get template() {
@@ -85,7 +91,7 @@ export default class StatsView extends AbstractView {
           </td>
             <td class="result__points">× 100</td>
             <td class="result__total">
-              ${this.initialData.rightsAnswers * 100}
+              ${this.rightAnswers * 100}
             </td>
         </tr>
         <tr>
@@ -110,7 +116,7 @@ export default class StatsView extends AbstractView {
           <td class="result__total">-100</td>
         </tr>
         <tr>
-          <td colspan="5" class="result__total  result__total--final">${this.initialData.rightsAnswers * 100 + this.initialData.lives * 50}</td>
+          <td colspan="5" class="result__total  result__total--final">${this.rightAnswers * 100 + this.initialData.lives * 50}</td>
         </tr>
       </table>
     `;
