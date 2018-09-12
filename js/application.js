@@ -51,20 +51,6 @@ export default class Application {
     gameScreen.onEndGame = (data) => {
       Application.showStats(data);
     };
-    // gameScreen.onNext = (answers) => {
-    //   saveResult(answers);
-    //   if (gameData.lives === 0) {
-    //     Application.showStats();
-    //     return;
-    //   }
-    //
-    //   if (gameData.level < levelsData.length - 1) {
-    //     gameData.level += 1;
-    //     Application.showGame();
-    //   } else {
-    //     Application.showStats();
-    //   }
-    // };
   }
 
   static showStats(data) {

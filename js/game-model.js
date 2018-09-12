@@ -5,8 +5,6 @@ import checkAnswer from './utils/check-answer';
 import {countLives} from './utils/count-lives';
 import {changeLevel} from './utils/change-level';
 
-const getLevel = (state) => levelsData[`${state.level}`];
-
 export default class GameModel {
   constructor(userName) {
     this.userName = userName;

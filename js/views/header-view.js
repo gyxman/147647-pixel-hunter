@@ -41,10 +41,8 @@ export default class HeaderView extends AbstractView {
 
   blink(blink) {
     if (blink) {
-      console.log(this.timer)
       this.timer.classList.add(`game__timer--blink`);
     } else {
-
       this.timer.classList.remove(`game__timer--blink`);
     }
   }
