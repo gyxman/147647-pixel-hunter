@@ -34,7 +34,7 @@ export default class Application {
       Application.showGame(userName);
     };
     rules.onBack = () => {
-      Application.showIntro();
+      Application.showGreeting();
     };
   }
 
@@ -45,7 +45,7 @@ export default class Application {
     gameScreen.startGame();
 
     gameScreen.onBack = () => {
-      Application.showIntro();
+      Application.showGreeting();
     };
 
     gameScreen.onEndGame = (data) => {
@@ -58,7 +58,7 @@ export default class Application {
     changeScreen(stats.element);
 
     stats.onBack = () => {
-      Application.showIntro();
+      Application.showGreeting();
     };
   }
 }
