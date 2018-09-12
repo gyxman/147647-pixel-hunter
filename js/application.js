@@ -47,6 +47,10 @@ export default class Application {
     gameScreen.onBack = () => {
       Application.showIntro();
     };
+
+    gameScreen.onEndGame = (data) => {
+      Application.showStats(data);
+    };
     // gameScreen.onNext = (answers) => {
     //   saveResult(answers);
     //   if (gameData.lives === 0) {
@@ -63,8 +67,8 @@ export default class Application {
     // };
   }
 
-  static showStats() {
-    const stats = new StatsView(gameData);
+  static showStats(data) {
+    const stats = new StatsView(data);
     changeScreen(stats.element);
 
     stats.onBack = () => {

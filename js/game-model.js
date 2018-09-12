@@ -1,6 +1,6 @@
 import levelsData from './data/levels-data';
 import {INITIAL_GAME} from './data/initial-data';
-import {tick} from './utils/util';
+import {saveResult, tick} from './utils/util';
 import checkAnswer from './utils/check-answer';
 import {countLives} from './utils/count-lives';
 import {changeLevel} from './utils/change-level';
@@ -35,10 +35,8 @@ export default class GameModel {
   }
 
   onAnswer(answers) {
-    console.log(answers)
-    this._state = checkAnswer(this._state, answers);
-    this._state = countLives(this._state, checkAnswer(answers) ? this._state.lives : this._state.lives - 1);
+    this._state = saveResult(this._state, answers);
+    this._state = countLives(this._state, checkAnswer(this._state, answers) ? this._state.lives : this._state.lives - 1);
     this._state = changeLevel(this._state, this._state.level + 1);
-    console.log(this._state);
   }
 }

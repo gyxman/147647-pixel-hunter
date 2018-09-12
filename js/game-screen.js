@@ -2,7 +2,6 @@ import Application from './application';
 import HeaderView from './views/header-view';
 import LevelView from './views/level-view';
 import levelsData from './data/levels-data';
-import {saveResult} from './utils/util';
 
 const TIMER_INTERVAL = 1000;
 const BLINK_TIME = 5;
@@ -75,24 +74,25 @@ export default class GameScreen {
 
   onAnswer(answers) {
     this.model.onAnswer(answers);
-    saveResult(answers);
 
     this.resetTimer();
     this.updateHeader();
 
     if (this.model.state.lives === 0) {
-      Application.showStats();
+      this.onEndGame(this.model.state);
       return;
     }
 
     if (this.model.state.level < levelsData.length - 1) {
       this.changeLevel();
     } else {
-      Application.showStats();
+      this.onEndGame(this.model.state);
     }
   }
 
   bind() {}
 
   onBack() {}
+
+  onEndGame() {}
 }
