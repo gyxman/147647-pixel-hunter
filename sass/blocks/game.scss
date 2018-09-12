@@ -16,6 +16,21 @@
   @include bold-text;
   font-size: 60px;
   line-height: 45px;
+
+  &--blink {
+    color: $main-red-color;
+    animation: blink 1s infinite;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .game__task {

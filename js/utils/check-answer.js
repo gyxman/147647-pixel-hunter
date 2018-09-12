@@ -1,9 +1,11 @@
-import gameData from '../data/game-data';
 import levelsData from '../data/levels-data';
 
-const checkAnswer = (answers) => {
+const checkAnswer = (game, answers) => {
+  if (!answers) {
+    return false;
+  }
   let isRight = true;
-  const currentAnswers = levelsData[gameData.level].options.map((option) => {
+  const currentAnswers = levelsData[game.level].options.map((option) => {
     return option.answer;
   });
 
@@ -12,10 +14,6 @@ const checkAnswer = (answers) => {
       isRight = false;
     }
   });
-
-  if (isRight) {
-    gameData.rightsAnswers += 1;
-  }
 
   return isRight;
 };

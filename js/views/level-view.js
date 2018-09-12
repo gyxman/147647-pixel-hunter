@@ -1,21 +1,15 @@
-import getHeader from '../parts/header';
 import AbstractView from './abstract-view';
-import {getFrame, setImagesSize} from '../utils/util';
-import HeaderView from "./header-view";
+import {getFrame, setImagesSize} from "../utils/util";
 
-export default class GameView extends AbstractView {
+export default class LevelView extends AbstractView {
   constructor(level, initialData) {
     super();
     this.level = level;
     this.initialData = initialData;
-    this.header = new HeaderView(this.initialData);
   }
 
   get template() {
     return `
-      <header class="header">
-        ${getHeader(this.initialData)}
-      </header>
       <section class="game">
         ${this.partTemplate}
       </section>
@@ -78,9 +72,11 @@ export default class GameView extends AbstractView {
   }
 
   setSizeImages() {
-    const variants = this.element.querySelectorAll(`.game__option`);
-    const frame = getFrame(variants[0]);
-    setImagesSize(frame, this.element.querySelectorAll(`.game img`), this.level[this.initialData.level]);
+    setTimeout(() => {
+      const variants = this.element.querySelectorAll(`.game__option`);
+      const frame = getFrame(variants[0]);
+      setImagesSize(frame, this.element.querySelectorAll(`.game img`), this.level[this.initialData.level]);
+    }, 0);
   }
 
   bind() {
@@ -114,13 +110,7 @@ export default class GameView extends AbstractView {
         });
       });
     }
-
-    const backButton = this.element.querySelector(`.back`);
-    backButton.addEventListener(`click`, () => {
-      this.onBack();
-    });
   }
 
   onClick() {}
-  onBack() {}
 }

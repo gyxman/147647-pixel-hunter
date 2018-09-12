@@ -1,7 +1,9 @@
 export const INITIAL_GAME = Object.freeze({
-  screen: 0,
+  level: 0,
   lives: 3,
   remainingTime: 30,
+  userName: `Безымянный`,
+  answers: [],
   countQuestion: 10,
   currentAnswerPoints: 100,
   fastAnswerPoints: 50,

@@ -1,5 +1,4 @@
 import resize from './resize';
-import gameData from '../data/game-data';
 import checkAnswer from './check-answer';
 import getHeader from "../parts/header";
 
@@ -31,12 +30,18 @@ export const setImagesSize = (frame, images, data) => {
   });
 };
 
-export const saveResult = (array) => {
-  gameData.answers.push({answer: checkAnswer(array), time: `normal`});
+export const saveResult = (game, array) => {
+  const answers = [...game.answers, {answer: checkAnswer(game, array), time: `normal`}];
+  return Object.assign({}, game, {answers});
 };
 
 export const updateHeader = (initialData) => {
   const header = document.querySelector(`.header`);
   header.innerHTML = ``;
   header.innerHTML = `${getHeader(initialData)}`;
+};
+
+export const tick = (game) => {
+  const timeLeft = game.remainingTime - 1;
+  return Object.assign({}, game, {remainingTime: timeLeft});
 };
