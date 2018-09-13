@@ -18,20 +18,20 @@ export default class LevelView extends AbstractView {
   }
 
   get partTemplate() {
-    if (this.level[this.initialData.level].type === `twoOfTwo` || this.level[this.initialData.level].type === `oneOfOne`) {
+    if (this.level[this.initialData.level].type === `two-of-two` || this.level[this.initialData.level].type === `tinder-like`) {
       return `
-        <p class="game__task">${this.level[this.initialData.level].title}</p>
-        <form class="game__content ${this.level[this.initialData.level].type === `oneOfOne` ? `game__content--wide` : ``}">
-          ${[...this.level[this.initialData.level].options].map((option, index) => `
+        <p class="game__task">${this.level[this.initialData.level].question}</p>
+        <form class="game__content ${this.level[this.initialData.level].type === `tinder-like` ? `game__content--wide` : ``}">
+          ${[...this.level[this.initialData.level].answers].map((option, index) => `
             <div class="game__option">
               <img src="${option.src}" alt="Option ${index + 1}">
               <label class="game__answer game__answer--photo">
-                <input class="visually-hidden" name="question${index + 1}" type="radio" value="${option.labels[0].value}">
-                <span>${option.labels[0].name}</span>
+                <input class="visually-hidden" name="question${index + 1}" type="radio" value="photo">
+                <span>Фото</span>
               </label>
               <label class="game__answer game__answer--paint">
-                <input class="visually-hidden" name="question${index + 1}" type="radio" value="${option.labels[1].value}">
-                <span>${option.labels[0].name}</span>
+                <input class="visually-hidden" name="question${index + 1}" type="radio" value="painting">
+                <span>Рисунок</span>
               </label>
             </div>
           `).join(``)}
@@ -42,10 +42,10 @@ export default class LevelView extends AbstractView {
       `;
     }
     return `
-      <p class="game__task">${this.level[this.initialData.level].title}</p>
-      <form class="game__content ${this.level[this.initialData.level].type === `oneOfThree` ? `game__content--triple` : ``}">
-        ${[...this.level[this.initialData.level].options].map((option, index) => `
-          <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" data-answer="${option.labels[0].value}"></div>
+      <p class="game__task">${this.level[this.initialData.level].question}</p>
+      <form class="game__content ${this.level[this.initialData.level].type === `one-of-three` ? `game__content--triple` : ``}">
+        ${[...this.level[this.initialData.level].answers].map((option, index) => `
+          <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" data-answer="${option.answer}"></div>
         `).join(``)}
       </form>
         <ul class="stats">
@@ -61,15 +61,6 @@ export default class LevelView extends AbstractView {
       const element = document.createElement(`li`);
       const additionalClass = checkAnswerType(data.answers[index]);
       element.classList.add(`stats__result`, additionalClass);
-      // if (data.answers[index]) {
-      //   if (data.answers[index].time === `normal` && data.answers[index].answer) {
-      //     element.classList.add(`stats__result`, `stats__result--correct`);
-      //   } else if (data.answers[index].time === `normal` && !data.answers[index].answer) {
-      //     element.classList.add(`stats__result`, `stats__result--wrong`);
-      //   }
-      // } else {
-      //   element.classList.add(`stats__result`, `stats__result--unknown`);
-      // }
       stats.appendChild(element);
     });
   }
@@ -85,7 +76,7 @@ export default class LevelView extends AbstractView {
   bind() {
     const variants = this.element.querySelectorAll(`.game__option`);
 
-    if (this.level[this.initialData.level].type === `twoOfTwo`) {
+    if (this.level[this.initialData.level].type === `two-of-two`) {
       const radioElements = this.element.querySelectorAll(`.game__content .visually-hidden`);
       radioElements.forEach((radio) => {
         radio.addEventListener(`change`, ()=> {
@@ -95,7 +86,7 @@ export default class LevelView extends AbstractView {
           }
         });
       });
-    } else if (this.level[this.initialData.level].type === `oneOfOne`) {
+    } else if (this.level[this.initialData.level].type === `tinder-like`) {
       const nextButtons = this.element.querySelectorAll(`.game__answer`);
       nextButtons.forEach((button) => {
         button.addEventListener(`click`, (event)=> {

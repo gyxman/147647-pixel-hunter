@@ -10,13 +10,19 @@ const rightAnswers = (data) => {
 const fastAnswers = (data) => {
   const array = [...data].filter((item) => item.answer);
   const arrFast = array.map((item) => item.time === `fast` ? 1 : 0);
-  return arrFast.reduce((sum, item) => sum + item);
+  if (arrFast.length) {
+    return arrFast.reduce((sum, item) => sum + item);
+  }
+  return 0;
 };
 
 const slowAnswers = (data) => {
   const array = [...data].filter((item) => item.answer);
   const arrSlow = array.map((item) => item.time === `slow` ? 1 : 0);
-  return arrSlow.reduce((sum, item) => sum + item);
+  if (arrSlow.length) {
+    return arrSlow.reduce((sum, item) => sum + item);
+  }
+  return 0;
 };
 
 export default class StatsView extends AbstractView {

@@ -1,7 +1,6 @@
 import Application from './application';
 import HeaderView from './views/header-view';
 import LevelView from './views/level-view';
-import levelsData from './data/levels-data';
 
 const TIMER_INTERVAL = 1000;
 const BLINK_TIME = 5;
@@ -10,7 +9,7 @@ export default class GameScreen {
   constructor(model) {
     this.model = model;
     this.header = new HeaderView(this.model.state);
-    this.content = new LevelView(levelsData, this.model.state);
+    this.content = new LevelView(this.model.levelsData, this.model.state);
 
     this.root = document.createElement(`div`);
     this.root.appendChild(this.header.element);
@@ -64,7 +63,7 @@ export default class GameScreen {
   changeLevel() {
     this.updateHeader();
 
-    const level = new LevelView(levelsData, this.model.state);
+    const level = new LevelView(this.model.levelsData, this.model.state);
     this.changeContentView(level);
     this.startGame();
   }
@@ -86,7 +85,7 @@ export default class GameScreen {
       return;
     }
 
-    if (this.model.state.level < levelsData.length) {
+    if (this.model.state.level < this.model.levelsData.length) {
       this.changeLevel();
     } else {
       this.onEndGame(this.model.state);

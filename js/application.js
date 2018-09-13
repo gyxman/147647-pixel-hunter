@@ -9,8 +9,36 @@ import rulesData from './data/rules-data';
 import {INITIAL_GAME} from './data/initial-data';
 import GameModel from './game-model';
 import GameScreen from './game-screen';
+import SplashScreen from './splash-screen';
+import ErrorScreen from './error-screen';
+import {adaptServerData} from './data/data-adapter';
 
+const checkStatus = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(`${response.status}: ${response.statusText}`);
+  }
+};
+
+let questData;
 export default class Application {
+  static start() {
+    const splash = new SplashScreen();
+    changeScreen(splash.element);
+    splash.start();
+
+    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
+    then(checkStatus).
+    then((response) => response.json()).
+    then((data) => {
+      questData = adaptServerData(data);
+    }).
+    then(() => Application.showIntro()).
+    catch(Application.showError).
+    then(() => splash.stop());
+  }
+
   static showIntro() {
     const intro = new IntroView(introData);
     changeScreen(intro.element);
@@ -39,7 +67,7 @@ export default class Application {
   }
 
   static showGame(userName) {
-    const gameModel = new GameModel(userName);
+    const gameModel = new GameModel(questData, userName);
     const gameScreen = new GameScreen(gameModel);
     changeScreen(gameScreen.element);
     gameScreen.startGame();
@@ -60,5 +88,10 @@ export default class Application {
     stats.onBack = () => {
       Application.showGreeting();
     };
+  }
+
+  static showError(error) {
+    const errorScreen = new ErrorScreen(error);
+    changeScreen(errorScreen.element);
   }
 }
