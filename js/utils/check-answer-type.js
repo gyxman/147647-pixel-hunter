@@ -11,9 +11,9 @@ const checkAnswerType = (answer) => {
     return ANSWER_TYPE.unknown;
   }
 
-  if (answer.answer) {
-    switch (answer.time) {
-      case `normal`:
+  if (answer) {
+    switch (answer) {
+      case `correct`:
         return ANSWER_TYPE.correct;
       case `fast`:
         return ANSWER_TYPE.fast;

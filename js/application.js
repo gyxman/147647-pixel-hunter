@@ -11,15 +11,7 @@ import GameModel from './game-model';
 import GameScreen from './game-screen';
 import SplashScreen from './splash-screen';
 import ErrorScreen from './error-screen';
-import {adaptServerData} from './data/data-adapter';
-
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
+import Loader from "./utils/loader";
 
 let questData;
 export default class Application {
@@ -28,12 +20,8 @@ export default class Application {
     changeScreen(splash.element);
     splash.start();
 
-    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
-    then(checkStatus).
-    then((response) => response.json()).
-    then((data) => {
-      questData = adaptServerData(data);
-    }).
+    Loader.loadData().
+    then((data) => questData = data).
     then(() => Application.showIntro()).
     catch(Application.showError).
     then(() => splash.stop());
