@@ -1,13 +1,24 @@
-import levelsData from '../data/levels-data';
+const checkTypeAnswer = (title) => {
+  if (title === `Найдите фото среди изображений`) {
+    return `photo`;
+  }
+  return `painting`;
+};
 
-const checkAnswer = (game, answers) => {
+const checkAnswer = (data, game, answers) => {
   if (!answers) {
     return false;
   }
+
   let isRight = true;
-  const currentAnswers = levelsData[game.level].options.map((option) => {
-    return option.answer;
-  });
+  let currentAnswers;
+  if (data[game.level].type === `one-of-three`) {
+    currentAnswers = [checkTypeAnswer(data[game.level].question)];
+  } else {
+    currentAnswers = data[game.level].answers.map((option) => {
+      return option.answer;
+    });
+  }
 
   [...answers].forEach((answer, index) => {
     if (answer !== currentAnswers[index]) {

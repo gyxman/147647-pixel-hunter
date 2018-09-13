@@ -25,13 +25,20 @@ export const getFrame = (element) => {
 
 export const setImagesSize = (frame, images, data) => {
   images.forEach((img, index) => {
-    img.setAttribute(`width`, resize(frame, {'width': data.options[index].width, 'height': data.options[index].height}).width);
-    img.setAttribute(`height`, resize(frame, {'width': data.options[index].width, 'height': data.options[index].height}).height);
+    img.setAttribute(`width`, resize(frame, {'width': data.answers[index].width, 'height': data.answers[index].height}).width);
+    img.setAttribute(`height`, resize(frame, {'width': data.answers[index].width, 'height': data.answers[index].height}).height);
   });
 };
 
-export const saveResult = (game, array) => {
-  const answers = [...game.answers, {answer: checkAnswer(game, array), time: `normal`}];
+export const saveResult = (data, game, array, time) => {
+  if (time > 20) {
+    time = `fast`;
+  } else if (time < 10) {
+    time = `slow`;
+  } else {
+    time = `normal`;
+  }
+  const answers = [...game.answers, {answer: checkAnswer(data, game, array), time}];
   return Object.assign({}, game, {answers});
 };
 
