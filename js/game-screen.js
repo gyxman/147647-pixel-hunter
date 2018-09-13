@@ -15,7 +15,7 @@ export default class GameScreen {
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
 
-    this.time = this.header.element.querySelector(`.game__timer`);
+    this.timerElement = this.header.element.querySelector(`.game__timer`);
 
     this._interval = null;
   }
@@ -57,7 +57,7 @@ export default class GameScreen {
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
     this.header.onBack = () => this.onBack();
-    this.time = this.header.element.querySelector(`.game__timer`);
+    this.timerElement = this.header.element.querySelector(`.game__timer`);
   }
 
   changeLevel() {
@@ -74,7 +74,7 @@ export default class GameScreen {
   }
 
   onAnswer(answers = false) {
-    const time = this.time.innerHTML;
+    const time = this.timerElement.innerHTML;
     this.model.onAnswer(answers, time);
 
     this.resetTimer();

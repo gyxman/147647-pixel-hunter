@@ -10,7 +10,7 @@ const preprocessAnswers = (answers) => answers.map((item) => {
 });
 
 export const adaptServerData = (data) => {
-  for (const level of Object.values(data)) {
+  for (const level of data) {
     level.answers = preprocessAnswers(level.answers);
   }
 
