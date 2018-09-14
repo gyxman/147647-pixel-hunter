@@ -2,7 +2,7 @@ import {adaptServerData} from '../data/data-adapter.js';
 
 const SERVER_URL = `https://es.dump.academy/pixel-hunter`;
 
-const DEFAULT_NAME = `User`;
+const DEFAULT_NAME = `Безымянный`;
 const APP_ID = 1071991;
 
 const checkStatus = (response) => {
@@ -24,8 +24,8 @@ export default class Loader {
     return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`).then(checkStatus).then(toJSON);
   }
 
-  static saveResults(data, name = DEFAULT_NAME) {
-    data = Object.assign({name}, data);
+  static saveResults(answers, lives, name = DEFAULT_NAME) {
+    const data = Object.assign({}, {answers}, {lives});
     const requestSettings = {
       body: JSON.stringify(data),
       headers: {

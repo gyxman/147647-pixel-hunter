@@ -34,7 +34,7 @@ export default class StatsView extends AbstractView {
         <div class="end">
           <div class="scoreboard">Scoreboard is loading...</div>
           <br>
-          <div class="repeat"><span class="repeat-action">Сыграть заново</span>&nbsp;|&nbsp;<a class="repeat-action" href="https://google.com">Выйти</a>????</div>
+          <div class="repeat"><span class="repeat-action">Сыграть заново</span></div>
         </div>
         <table class="result__table" style="display:none;">
           <tr>
@@ -94,13 +94,13 @@ export default class StatsView extends AbstractView {
 
   get stepsTemplate() {
     return `
-      <h2 class="result__title">${this.initialData.lives ? `Победа!` : `Поражение!`}</h2>
+      <h2 class="result__title">${this.scores[this.last].lives ? `Победа!` : `Поражение!`}</h2>
       <table class="result__table">
         <tr>
         <td class="result__number">1.</td>
         <td colspan="2">
         <ul class="stats">
-        ${(this.initialData.answers).map((answer) => `
+        ${(this.scores[this.last].answers).map((answer) => `
             <li class="stats__result ${checkAnswerType(answer)}"></li>
           `).join(``)}
             </ul>
@@ -120,9 +120,9 @@ export default class StatsView extends AbstractView {
         <tr>
           <td></td>
           <td class="result__extra">Бонус за жизни:</td>
-          <td class="result__extra">${this.initialData.lives} <span class="stats__result stats__result--alive"></span></td>
+          <td class="result__extra">${this.scores[0].lives} <span class="stats__result stats__result--alive"></span></td>
           <td class="result__points">× 50</td>
-          <td class="result__total">${this.initialData.lives * 50}</td>
+          <td class="result__total">${this.scores[0].lives * 50}</td>
         </tr>
         <tr>
           <td></td>
@@ -132,7 +132,7 @@ export default class StatsView extends AbstractView {
           <td class="result__total">${this.slowAnswers * 50}</td>
         </tr>
         <tr>
-          <td colspan="5" class="result__total  result__total--final">${this.rightAnswers * 100 + this.initialData.lives * 50 + this.fastAnswers * 50 - this.slowAnswers * 50}</td>
+          <td colspan="5" class="result__total  result__total--final">${this.rightAnswers * 100 + this.scores[this.last].lives * 50 + this.fastAnswers * 50 - this.slowAnswers * 50}</td>
         </tr>
       </table>
     `;
@@ -154,20 +154,27 @@ export default class StatsView extends AbstractView {
   }
 
   showScores(scores) {
+    this.scores = scores;
+    this.last = this.scores.length - 1;
+    this.rightAnswers = rightAnswers(scores[this.last].answers);
+    this.fastAnswers = fastAnswers(scores[this.last].answers);
+    this.slowAnswers = slowAnswers(scores[this.last].answers);
+
     this._scoreBoardContainer.innerHTML = `
-      ${scores.map((it, i) => `
+      ${this.stepsTemplate}
+      ${this.scores.map((it, i) => `
         <table class="result__table">
           <tr>
             <td class="result__number">${i + 1}.</td>
             <td>
               <ul class="stats">
-                ${(scores[i].stats).map((answer) => `
+                ${(this.scores[i].answers).map((answer) => `
                   <li class="stats__result ${checkAnswerType(answer)}"></li>
                 `).join(``)}
               </ul>
             </td>
-            <td class="result__total"></td>
-            <td class="result__total  result__total--final">fail</td>
+            <td class="result__total">${rightAnswers(scores[i].answers) * 100 + this.scores[i].lives * 50 + fastAnswers(scores[i].answers) * 50 - slowAnswers(scores[i].answers) * 50}</td>
+            <td class="result__total  result__total--final">${this.scores[i].lives ? `Победа!` : `Поражение!`}</td>
           </tr>
         </table>  
       `).join(``)}

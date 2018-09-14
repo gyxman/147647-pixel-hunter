@@ -5,7 +5,7 @@ import {countLives} from './utils/count-lives';
 import {changeLevel} from './utils/change-level';
 
 export default class GameModel {
-  constructor(data, userName) {
+  constructor(data, userName = `Безымянный`) {
     this.levelsData = data;
     this.userName = userName;
     this.restart();
@@ -17,6 +17,11 @@ export default class GameModel {
 
   restart() {
     this._state = INITIAL_GAME;
+    this.saveName();
+  }
+
+  saveName() {
+    this._state = Object.assign({}, this._state, {userName: this.userName});
   }
 
   tick() {

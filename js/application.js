@@ -21,7 +21,9 @@ export default class Application {
     splash.start();
 
     Loader.loadData().
-    then((data) => questData = data).
+    then((data) => {
+      questData = data;
+    }).
     then(() => Application.showIntro()).
     catch(Application.showError).
     then(() => splash.stop());
@@ -31,9 +33,7 @@ export default class Application {
     const intro = new IntroView(introData);
     changeScreen(intro.element);
     intro.onClick = () => {
-      //Application.showGreeting();
-
-      Application.showStats();
+      Application.showGreeting();
     };
   }
 
@@ -72,14 +72,14 @@ export default class Application {
   }
 
   static showStats(model) {
+    const userName = model.userName;
     const stats = new StatsView();
     changeScreen(stats.element);
 
-    stats.showScores([{
-      date: new Date(),
-      stats: [`correct`, `wrong`, `fast`, `slow`, `correct`, `wrong`, `fast`, `slow`, `correct`, `wrong`],
-      lives: 3
-    }]);
+    Loader.saveResults(model.answers, model.lives, userName).
+    then(() => Loader.loadResults(userName)).
+    then((data) => stats.showScores(data)).
+    catch(Application.showError);
 
     stats.onBack = () => {
       Application.showGreeting();
