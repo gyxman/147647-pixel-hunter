@@ -2,7 +2,7 @@ import IntroView from './views/intro-view';
 import GreetingView from './views/greeting-view';
 import RulesView from './views/rules-view';
 import StatsView from './views/stats-view';
-import {changeScreen} from './utils/util';
+import {changeScreen, closeModal, showModal} from './utils/util';
 import introData from './data/intro-data';
 import greetingData from './data/greeting-data';
 import rulesData from './data/rules-data';
@@ -10,15 +10,16 @@ import {INITIAL_GAME} from './data/initial-data';
 import GameModel from './game-model';
 import GameScreen from './game-screen';
 import SplashScreen from './splash-screen';
-import ErrorScreen from './error-screen';
+import ErrorView from './views/error-view';
+import ConfirmView from './views/confirm-view';
 import Loader from './utils/loader';
 
 let questData;
 export default class Application {
   static start() {
-    const splash = new SplashScreen();
-    changeScreen(splash.element);
-    splash.start();
+    const splashScreen = new SplashScreen();
+    changeScreen(splashScreen.element);
+    splashScreen.start();
 
     Loader.loadData().
     then((data) => {
@@ -26,32 +27,32 @@ export default class Application {
     }).
     then(() => Application.showIntro()).
     catch(Application.showError).
-    then(() => splash.stop());
+    then(() => splashScreen.stop());
   }
 
   static showIntro() {
-    const intro = new IntroView(introData);
-    changeScreen(intro.element);
-    intro.onClick = () => {
+    const introScreen = new IntroView(introData);
+    changeScreen(introScreen.element);
+    introScreen.onClick = () => {
       Application.showGreeting();
     };
   }
 
   static showGreeting() {
-    const greeting = new GreetingView(greetingData);
-    changeScreen(greeting.element);
-    greeting.onClick = () => {
+    const greetingScreen = new GreetingView(greetingData);
+    changeScreen(greetingScreen.element);
+    greetingScreen.onClick = () => {
       Application.showRules();
     };
   }
 
   static showRules() {
-    const rules = new RulesView(rulesData, INITIAL_GAME);
-    changeScreen(rules.element);
-    rules.onClick = (userName) => {
+    const rulesScreen = new RulesView(rulesData, INITIAL_GAME);
+    changeScreen(rulesScreen.element);
+    rulesScreen.onClick = (userName) => {
       Application.showGame(userName);
     };
-    rules.onBack = () => {
+    rulesScreen.onBack = () => {
       Application.showGreeting();
     };
   }
@@ -73,21 +74,30 @@ export default class Application {
 
   static showStats(model) {
     const userName = model.userName;
-    const stats = new StatsView();
-    changeScreen(stats.element);
+    const statsScreen = new StatsView();
+    changeScreen(statsScreen.element);
 
     Loader.saveResults(model.answers, model.lives, userName).
     then(() => Loader.loadResults(userName)).
-    then((data) => stats.showScores(data)).
+    then((data) => statsScreen.showScores(data, userName)).
     catch(Application.showError);
 
-    stats.onBack = () => {
+    statsScreen.onBack = () => {
       Application.showGreeting();
     };
   }
 
   static showError(error) {
-    const errorScreen = new ErrorScreen(error);
+    const errorScreen = new ErrorView(error);
     changeScreen(errorScreen.element);
+  }
+
+  static showConfirm() {
+    const confirmScreen = new ConfirmView();
+    showModal(confirmScreen.element, `.modal`);
+
+    confirmScreen.onClose = () => {
+      closeModal(`.modal`);
+    };
   }
 }

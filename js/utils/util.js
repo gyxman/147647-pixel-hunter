@@ -16,6 +16,16 @@ export const changeScreen = (element) => {
   mainElement.appendChild(element);
 };
 
+export const showModal = (element, className) => {
+  if (!document.body.querySelector(className)) {
+    document.body.appendChild(element);
+  }
+};
+
+export const closeModal = (element) => {
+  document.body.querySelector(element).remove();
+};
+
 export const getFrame = (element) => {
   return {
     'width': element.clientWidth,

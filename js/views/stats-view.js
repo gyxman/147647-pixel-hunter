@@ -4,24 +4,18 @@ import checkAnswerType from '../utils/check-answer-type';
 import Application from '../application';
 
 const rightAnswers = (data) => {
-  const array = [...data].map((item) => item !== `wrong` ? 1 : 0);
+  const array = data.map((item) => item !== `wrong` ? 1 : 0);
   return array.reduce((sum, item) => sum + item);
 };
 
 const fastAnswers = (data) => {
-  const array = [...data].map((item) => item === `fast` ? 1 : 0);
-  if (array.length) {
-    return array.reduce((sum, item) => sum + item);
-  }
-  return 0;
+  const array = data.map((item) => item === `fast` ? 1 : 0);
+  return array.reduce((sum, item) => sum + item);
 };
 
 const slowAnswers = (data) => {
-  const array = [...data].map((item) => item === `slow` ? 1 : 0);
-  if (array.length) {
-    return array.reduce((sum, item) => sum + item);
-  }
-  return 0;
+  const array = data.map((item) => item === `slow` ? 1 : 0);
+  return array.reduce((sum, item) => sum + item);
 };
 
 export default class StatsView extends AbstractView {
@@ -97,7 +91,7 @@ export default class StatsView extends AbstractView {
       <h2 class="result__title">${this.scores[this.last].lives ? `Победа!` : `Поражение!`}</h2>
       <table class="result__table">
         <tr>
-        <td class="result__number">1.</td>
+        <td class="result__number">${this.userName}</td>
         <td colspan="2">
         <ul class="stats">
         ${(this.scores[this.last].answers).map((answer) => `
@@ -120,9 +114,9 @@ export default class StatsView extends AbstractView {
         <tr>
           <td></td>
           <td class="result__extra">Бонус за жизни:</td>
-          <td class="result__extra">${this.scores[0].lives} <span class="stats__result stats__result--alive"></span></td>
+          <td class="result__extra">${this.scores[this.last].lives} <span class="stats__result stats__result--alive"></span></td>
           <td class="result__points">× 50</td>
-          <td class="result__total">${this.scores[0].lives * 50}</td>
+          <td class="result__total">${this.scores[this.last].lives * 50}</td>
         </tr>
         <tr>
           <td></td>
@@ -153,16 +147,19 @@ export default class StatsView extends AbstractView {
     this._scoreBoardContainer = this.element.querySelector(`div.scoreboard`);
   }
 
-  showScores(scores) {
+  showScores(scores, userName) {
+    this.userName = userName;
     this.scores = scores;
+    // this.scores.splice(scores.length - 1, 1);
     this.last = this.scores.length - 1;
+    this.scoresShort = this.scores.slice(0, this.scores.length - 1);
     this.rightAnswers = rightAnswers(scores[this.last].answers);
     this.fastAnswers = fastAnswers(scores[this.last].answers);
     this.slowAnswers = slowAnswers(scores[this.last].answers);
 
     this._scoreBoardContainer.innerHTML = `
       ${this.stepsTemplate}
-      ${this.scores.map((it, i) => `
+      ${this.scoresShort.map((it, i) => `
         <table class="result__table">
           <tr>
             <td class="result__number">${i + 1}.</td>
@@ -182,7 +179,7 @@ export default class StatsView extends AbstractView {
   }
 
   onRepeat() {
-    Application.start();
+    Application.showConfirm();
   }
 
   onBack() {}
