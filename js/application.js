@@ -43,7 +43,9 @@ export default class Application {
     const intro = new IntroView(introData);
     changeScreen(intro.element);
     intro.onClick = () => {
-      Application.showGreeting();
+      //Application.showGreeting();
+
+      Application.showStats();
     };
   }
 
@@ -81,9 +83,15 @@ export default class Application {
     };
   }
 
-  static showStats(data) {
-    const stats = new StatsView(data);
+  static showStats(model) {
+    const stats = new StatsView();
     changeScreen(stats.element);
+
+    stats.showScores([{
+      date: new Date(),
+      stats: [`correct`, `wrong`, `fast`, `slow`, `correct`, `wrong`, `fast`, `slow`, `correct`, `wrong`],
+      lives: 3
+    }]);
 
     stats.onBack = () => {
       Application.showGreeting();

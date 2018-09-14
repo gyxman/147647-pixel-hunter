@@ -7,22 +7,18 @@ const ANSWER_TYPE = {
 };
 
 const checkAnswerType = (answer) => {
-  if (!answer) {
-    return ANSWER_TYPE.unknown;
+  switch (answer) {
+    case `normal`:
+      return ANSWER_TYPE.correct;
+    case `fast`:
+      return ANSWER_TYPE.fast;
+    case `slow`:
+      return ANSWER_TYPE.slow;
+    case `wrong`:
+      return ANSWER_TYPE.wrong;
   }
 
-  if (answer.answer) {
-    switch (answer.time) {
-      case `normal`:
-        return ANSWER_TYPE.correct;
-      case `fast`:
-        return ANSWER_TYPE.fast;
-      case `slow`:
-        return ANSWER_TYPE.slow;
-    }
-  }
-
-  return ANSWER_TYPE.wrong;
+  return ANSWER_TYPE.unknown;
 };
 
 export default checkAnswerType;

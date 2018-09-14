@@ -1,6 +1,7 @@
 import getHeader from '../parts/header';
 import AbstractView from './abstract-view';
 import checkAnswerType from '../utils/check-answer-type';
+import Application from '../application';
 
 const rightAnswers = (data) => {
   const array = [...data].map((item) => item.answer ? 1 : 0);
@@ -26,21 +27,17 @@ const slowAnswers = (data) => {
 };
 
 export default class StatsView extends AbstractView {
-  constructor(initialData) {
-    super();
-    this.initialData = initialData;
-    this.rightAnswers = rightAnswers(initialData.answers);
-    this.fastAnswers = fastAnswers(initialData.answers);
-    this.slowAnswers = slowAnswers(initialData.answers);
-  }
-
   get template() {
     return `
       <header class="header">
         ${getHeader()}
       </header>
       <section class="result">
-        ${this.stepsTemplate}
+        <div class="end">
+          <div class="scoreboard">Scoreboard is loading...</div>
+          <br>
+          <div class="repeat"><span class="repeat-action">Сыграть заново</span>&nbsp;|&nbsp;<a class="repeat-action" href="https://google.com">Выйти</a>????</div>
+        </div>
         <table class="result__table" style="display:none;">
           <tr>
             <td class="result__number">2.</td>
@@ -149,6 +146,39 @@ export default class StatsView extends AbstractView {
     backButton.addEventListener(`click`, () => {
       this.onBack();
     });
+
+    this.element.querySelector(`span.repeat-action`).onclick = (evt) => {
+      evt.preventDefault();
+      this.onRepeat();
+    };
+
+    this._scoreBoardContainer = this.element.querySelector(`div.scoreboard`);
+  }
+
+  showScores(scores) {
+    console.log(scores[0].stats)
+    this._scoreBoardContainer.innerHTML = `
+      ${scores.map((it, i) => `
+        <table class="result__table">
+          <tr>
+            <td class="result__number">${i + 1}.</td>
+            <td>
+              <ul class="stats">
+                ${(scores[i].stats).map((answer) => `
+                  <li class="stats__result ${checkAnswerType(answer)}"></li>
+                `).join(``)}
+              </ul>
+            </td>
+            <td class="result__total"></td>
+            <td class="result__total  result__total--final">fail</td>
+          </tr>
+        </table>  
+      `).join(``)}
+    `;
+  }
+
+  onRepeat() {
+    Application.start();
   }
 
   onBack() {}
