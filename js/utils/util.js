@@ -31,14 +31,18 @@ export const setImagesSize = (frame, images, data) => {
 };
 
 export const saveResult = (data, game, array, time) => {
-  if (time > 20) {
-    time = `fast`;
-  } else if (time < 10) {
-    time = `slow`;
+  const answers = [...game.answers];
+  if (checkAnswer(data, game, array)) {
+    if (time > 20) {
+      answers.push(`fast`);
+    } else if (time < 10) {
+      answers.push(`slow`);
+    } else {
+      answers.push(`correct`);
+    }
   } else {
-    time = `normal`;
+    answers.push(`wrong`);
   }
-  const answers = [...game.answers, {answer: checkAnswer(data, game, array), time}];
   return Object.assign({}, game, {answers});
 };
 

@@ -4,24 +4,22 @@ import checkAnswerType from '../utils/check-answer-type';
 import Application from '../application';
 
 const rightAnswers = (data) => {
-  const array = [...data].map((item) => item.answer ? 1 : 0);
+  const array = [...data].map((item) => item !== `wrong` ? 1 : 0);
   return array.reduce((sum, item) => sum + item);
 };
 
 const fastAnswers = (data) => {
-  const array = [...data].filter((item) => item.answer);
-  const arrFast = array.map((item) => item.time === `fast` ? 1 : 0);
-  if (arrFast.length) {
-    return arrFast.reduce((sum, item) => sum + item);
+  const array = [...data].map((item) => item === `fast` ? 1 : 0);
+  if (array.length) {
+    return array.reduce((sum, item) => sum + item);
   }
   return 0;
 };
 
 const slowAnswers = (data) => {
-  const array = [...data].filter((item) => item.answer);
-  const arrSlow = array.map((item) => item.time === `slow` ? 1 : 0);
-  if (arrSlow.length) {
-    return arrSlow.reduce((sum, item) => sum + item);
+  const array = [...data].map((item) => item === `slow` ? 1 : 0);
+  if (array.length) {
+    return array.reduce((sum, item) => sum + item);
   }
   return 0;
 };
@@ -156,7 +154,6 @@ export default class StatsView extends AbstractView {
   }
 
   showScores(scores) {
-    console.log(scores[0].stats)
     this._scoreBoardContainer.innerHTML = `
       ${scores.map((it, i) => `
         <table class="result__table">
