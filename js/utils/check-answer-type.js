@@ -11,15 +11,13 @@ const checkAnswerType = (answer) => {
     return ANSWER_TYPE.unknown;
   }
 
-  if (answer.answer) {
-    switch (answer.time) {
-      case `normal`:
-        return ANSWER_TYPE.correct;
-      case `fast`:
-        return ANSWER_TYPE.fast;
-      case `slow`:
-        return ANSWER_TYPE.slow;
-    }
+  switch (answer) {
+    case `correct`:
+      return ANSWER_TYPE.correct;
+    case `fast`:
+      return ANSWER_TYPE.fast;
+    case `slow`:
+      return ANSWER_TYPE.slow;
   }
 
   return ANSWER_TYPE.wrong;

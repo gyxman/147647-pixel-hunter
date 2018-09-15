@@ -1,6 +1,6 @@
 import resize from './resize';
 import checkAnswer from './check-answer';
-import getHeader from "../parts/header";
+import getHeader from '../parts/header';
 
 export const getElementFromTemplate = (template, tagName = `div`, tagClass) => {
   const wrapper = document.createElement(tagName);
@@ -14,6 +14,16 @@ const mainElement = document.querySelector(`#main`);
 export const changeScreen = (element) => {
   mainElement.innerHTML = ``;
   mainElement.appendChild(element);
+};
+
+export const showModal = (element, className) => {
+  if (!document.body.querySelector(className)) {
+    document.body.appendChild(element);
+  }
+};
+
+export const closeModal = (element) => {
+  document.body.querySelector(element).remove();
 };
 
 export const getFrame = (element) => {
@@ -31,14 +41,19 @@ export const setImagesSize = (frame, images, data) => {
 };
 
 export const saveResult = (data, game, array, time) => {
-  if (time > 20) {
-    time = `fast`;
-  } else if (time < 10) {
-    time = `slow`;
+  let answer;
+  if (checkAnswer(data, game, array)) {
+    if (time > 20) {
+      answer = `fast`;
+    } else if (time < 10) {
+      answer = `slow`;
+    } else {
+      answer = `correct`;
+    }
   } else {
-    time = `normal`;
+    answer = `wrong`;
   }
-  const answers = [...game.answers, {answer: checkAnswer(data, game, array), time}];
+  const answers = [...game.answers, answer];
   return Object.assign({}, game, {answers});
 };
 

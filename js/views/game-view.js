@@ -1,7 +1,7 @@
 import getHeader from '../parts/header';
 import AbstractView from './abstract-view';
 import {getFrame, setImagesSize} from '../utils/util';
-import HeaderView from "./header-view";
+import HeaderView from './header-view';
 
 export default class GameView extends AbstractView {
   constructor(level, initialData) {
@@ -122,5 +122,6 @@ export default class GameView extends AbstractView {
   }
 
   onClick() {}
+
   onBack() {}
 }
