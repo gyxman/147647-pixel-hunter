@@ -9,6 +9,7 @@ export default class GameModel {
     this.levelsData = data;
     this.userName = userName;
     this.restart();
+    this.saveName();
   }
 
   get state() {
@@ -17,7 +18,6 @@ export default class GameModel {
 
   restart() {
     this._state = INITIAL_GAME;
-    this.saveName();
   }
 
   saveName() {

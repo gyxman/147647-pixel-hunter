@@ -1,5 +1,4 @@
 import AbstractView from './abstract-view';
-import Application from '../application';
 
 export default class ConfirmView extends AbstractView {
   get template() {
@@ -27,15 +26,19 @@ export default class ConfirmView extends AbstractView {
     });
 
     const cancelButton = this.element.querySelector(`.modal__btn:last-child`);
-    cancelButton.addEventListener(`click`, () => {
+    cancelButton.addEventListener(`click`, (e) => {
+      e.preventDefault();
       this.onClose();
     });
 
     const okButton = this.element.querySelector(`.modal__btn:first-child`);
-    okButton.addEventListener(`click`, () => {
-      Application.start();
+    okButton.addEventListener(`click`, (e) => {
+      e.preventDefault();
+      this.onResetGame();
     });
   }
+
+  onResetGame() {}
 
   onClose() {}
 }

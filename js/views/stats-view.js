@@ -1,7 +1,6 @@
 import getHeader from '../parts/header';
 import AbstractView from './abstract-view';
 import checkAnswerType from '../utils/check-answer-type';
-import Application from '../application';
 
 const rightAnswers = (data) => {
   const array = data.map((item) => item !== `wrong` ? 1 : 0);
@@ -150,7 +149,6 @@ export default class StatsView extends AbstractView {
   showScores(scores, userName) {
     this.userName = userName;
     this.scores = scores;
-    // this.scores.splice(scores.length - 1, 1);
     this.last = this.scores.length - 1;
     this.scoresShort = this.scores.slice(0, this.scores.length - 1);
     this.rightAnswers = rightAnswers(scores[this.last].answers);
@@ -178,9 +176,7 @@ export default class StatsView extends AbstractView {
     `;
   }
 
-  onRepeat() {
-    Application.showConfirm();
-  }
+  onRepeat() {}
 
   onBack() {}
 }

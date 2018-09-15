@@ -64,7 +64,7 @@ export default class Application {
     gameScreen.startGame();
 
     gameScreen.onBack = () => {
-      Application.showGreeting();
+      Application.showConfirm(gameScreen);
     };
 
     gameScreen.onEndGame = (data) => {
@@ -82,6 +82,10 @@ export default class Application {
     then((data) => statsScreen.showScores(data, userName)).
     catch(Application.showError);
 
+    statsScreen.onRepeat = () => {
+      Application.showGreeting();
+    };
+
     statsScreen.onBack = () => {
       Application.showGreeting();
     };
@@ -92,10 +96,15 @@ export default class Application {
     changeScreen(errorScreen.element);
   }
 
-  static showConfirm() {
+  static showConfirm(game) {
     const confirmScreen = new ConfirmView();
     showModal(confirmScreen.element, `.modal`);
 
+    confirmScreen.onResetGame = () => {
+      game.resetTimer();
+      Application.showGreeting();
+      confirmScreen.onClose();
+    };
     confirmScreen.onClose = () => {
       closeModal(`.modal`);
     };
