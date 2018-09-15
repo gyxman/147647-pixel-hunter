@@ -41,18 +41,19 @@ export const setImagesSize = (frame, images, data) => {
 };
 
 export const saveResult = (data, game, array, time) => {
-  const answers = [...game.answers];
+  let answer;
   if (checkAnswer(data, game, array)) {
     if (time > 20) {
-      answers.push(`fast`);
+      answer = `fast`;
     } else if (time < 10) {
-      answers.push(`slow`);
+      answer = `slow`;
     } else {
-      answers.push(`correct`);
+      answer = `correct`;
     }
   } else {
-    answers.push(`wrong`);
+    answer = `wrong`;
   }
+  const answers = [...game.answers, answer];
   return Object.assign({}, game, {answers});
 };
 
