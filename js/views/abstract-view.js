@@ -7,9 +7,7 @@ export default class AbstractView {
     }
   }
 
-  get template() {
-
-  }
+  get template() {}
 
   get element() {
     if (this._element) {

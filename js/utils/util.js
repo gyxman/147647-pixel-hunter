@@ -1,6 +1,6 @@
 import resize from './resize';
 import checkAnswer from './check-answer';
-import getHeader from "../parts/header";
+import getHeader from '../parts/header';
 
 export const getElementFromTemplate = (template, tagName = `div`, tagClass) => {
   const wrapper = document.createElement(tagName);
