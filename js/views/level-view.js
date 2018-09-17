@@ -1,6 +1,7 @@
 import AbstractView from './abstract-view';
-import {getFrame, setImagesSize} from '../utils/util';
+import {getFrame, setImagesSize, isDebug} from '../utils/util';
 import checkAnswerType from '../utils/check-answer-type';
+import {checkTypeAnswer} from '../utils/check-answer';
 
 export default class LevelView extends AbstractView {
   constructor(level, initialData) {
@@ -24,7 +25,7 @@ export default class LevelView extends AbstractView {
         <form class="game__content ${this.level[this.initialData.level].type === `tinder-like` ? `game__content--wide` : ``}">
           ${[...this.level[this.initialData.level].answers].map((option, index) => `
             <div class="game__option">
-              <img src="${option.src}" alt="Option ${index + 1}">
+              <img src="${option.src}" alt="Option ${index + 1}" data-answer="${option.answer}">
               <label class="game__answer game__answer--photo">
                 <input class="visually-hidden" name="question${index + 1}" type="radio" value="photo">
                 <span>Фото</span>
@@ -42,7 +43,7 @@ export default class LevelView extends AbstractView {
       `;
     }
     return `
-      <p class="game__task">${this.level[this.initialData.level].question}</p>
+      <p class="game__task" data-answer="${checkTypeAnswer(this.level[this.initialData.level].question)}">${this.level[this.initialData.level].question}</p>
       <form class="game__content ${this.level[this.initialData.level].type === `one-of-three` ? `game__content--triple` : ``}">
         ${[...this.level[this.initialData.level].answers].map((option, index) => `
           <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" data-answer="${option.answer}"></div>
@@ -73,8 +74,30 @@ export default class LevelView extends AbstractView {
     }, 0);
   }
 
+  highlightRightAnswer() {
+    if (this.level[this.initialData.level].type === `two-of-two` || this.level[this.initialData.level].type === `tinder-like`) {
+      const gameOptions = this.element.querySelectorAll(`.game__option`);
+      gameOptions.forEach((option) => {
+        const answer = option.querySelector(`img`).getAttribute(`data-answer`);
+        option.querySelector(`input[value = ${answer}]`).parentElement.setAttribute(`style`, `border:3px solid green; border-radius:100%`);
+      });
+    } else {
+      const answer = this.element.querySelector(`.game__task`).getAttribute(`data-answer`);
+      const gameOptions = this.element.querySelectorAll(`.game__option`);
+      gameOptions.forEach((option) => {
+        if (option.querySelector(`img`).getAttribute(`data-answer`) === answer) {
+          option.setAttribute(`style`, `outline:3px solid green;`);
+        }
+      });
+    }
+  }
+
   bind() {
     const variants = this.element.querySelectorAll(`.game__option`);
+
+    if (isDebug()) {
+      this.highlightRightAnswer();
+    }
 
     if (this.level[this.initialData.level].type === `two-of-two`) {
       const radioElements = this.element.querySelectorAll(`.game__content .visually-hidden`);

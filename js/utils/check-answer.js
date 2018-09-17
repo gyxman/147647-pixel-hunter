@@ -1,4 +1,4 @@
-const checkTypeAnswer = (title) => {
+export const checkTypeAnswer = (title) => {
   if (title === `Найдите фото среди изображений`) {
     return `photo`;
   }
