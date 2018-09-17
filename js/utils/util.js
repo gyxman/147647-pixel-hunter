@@ -67,3 +67,5 @@ export const tick = (game) => {
   const timeLeft = game.remainingTime - 1;
   return Object.assign({}, game, {remainingTime: timeLeft});
 };
+
+export const debug = () => window.location.hash === `#debug`;
