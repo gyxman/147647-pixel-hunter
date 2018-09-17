@@ -1,5 +1,5 @@
 import AbstractView from './abstract-view';
-import {getFrame, setImagesSize, debug} from '../utils/util';
+import {getFrame, setImagesSize, isDebug} from '../utils/util';
 import checkAnswerType from '../utils/check-answer-type';
 import {checkTypeAnswer} from '../utils/check-answer';
 
@@ -95,7 +95,7 @@ export default class LevelView extends AbstractView {
   bind() {
     const variants = this.element.querySelectorAll(`.game__option`);
 
-    if (debug) {
+    if (isDebug()) {
       this.highlightRightAnswer();
     }
 
