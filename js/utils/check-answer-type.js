@@ -1,26 +1,26 @@
-const ANSWER_TYPE = {
-  unknown: `stats__result--unknown`,
-  wrong: `stats__result--wrong`,
-  correct: `stats__result--correct`,
-  fast: `stats__result--fast`,
-  slow: `stats__result--slow`,
+const AnswerType = {
+  UNKNOWN: `stats__result--unknown`,
+  WRONG: `stats__result--wrong`,
+  CORRECT: `stats__result--correct`,
+  FAST: `stats__result--fast`,
+  SLOW: `stats__result--slow`,
 };
 
 const checkAnswerType = (answer) => {
   if (!answer) {
-    return ANSWER_TYPE.unknown;
+    return AnswerType.UNKNOWN;
   }
 
   switch (answer) {
     case `correct`:
-      return ANSWER_TYPE.correct;
+      return AnswerType.CORRECT;
     case `fast`:
-      return ANSWER_TYPE.fast;
+      return AnswerType.FAST;
     case `slow`:
-      return ANSWER_TYPE.slow;
+      return AnswerType.SLOW;
   }
 
-  return ANSWER_TYPE.wrong;
+  return AnswerType.WRONG;
 };
 
 export default checkAnswerType;
