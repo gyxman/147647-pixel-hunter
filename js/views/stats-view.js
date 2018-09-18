@@ -3,18 +3,18 @@ import checkAnswerType from '../utils/check-answer-type';
 import HeaderView from './header-view';
 
 const rightAnswers = (data) => {
-  const array = data.map((item) => item !== `wrong` ? 1 : 0);
-  return array.reduce((sum, item) => sum + item);
+  const answers = data.map((item) => item !== `wrong` ? 1 : 0);
+  return answers.reduce((sum, item) => sum + item);
 };
 
 const fastAnswers = (data) => {
-  const array = data.map((item) => item === `fast` ? 1 : 0);
-  return array.reduce((sum, item) => sum + item);
+  const answers = data.map((item) => item === `fast` ? 1 : 0);
+  return answers.reduce((sum, item) => sum + item);
 };
 
 const slowAnswers = (data) => {
-  const array = data.map((item) => item === `slow` ? 1 : 0);
-  return array.reduce((sum, item) => sum + item);
+  const answers = data.map((item) => item === `slow` ? 1 : 0);
+  return answers.reduce((sum, item) => sum + item);
 };
 
 export default class StatsView extends AbstractView {

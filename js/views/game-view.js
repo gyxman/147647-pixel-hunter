@@ -5,7 +5,7 @@ import HeaderView from './header-view';
 export default class GameView extends AbstractView {
   constructor(level, initialData) {
     super();
-    this.level = level;
+    this.levels = level;
     this.initialData = initialData;
     this.header = new HeaderView(this.initialData);
   }
@@ -22,11 +22,11 @@ export default class GameView extends AbstractView {
   }
 
   get partTemplate() {
-    if (this.level[this.initialData.level].type === `twoOfTwo` || this.level[this.initialData.level].type === `oneOfOne`) {
+    if (this.levels[this.initialData.level].type === `twoOfTwo` || this.levels[this.initialData.level].type === `oneOfOne`) {
       return `
-        <p class="game__task">${this.level[this.initialData.level].title}</p>
-        <form class="game__content ${this.level[this.initialData.level].type === `oneOfOne` ? `game__content--wide` : ``}">
-          ${[...this.level[this.initialData.level].options].map((option, index) => `
+        <p class="game__task">${this.levels[this.initialData.level].title}</p>
+        <form class="game__content ${this.levels[this.initialData.level].type === `oneOfOne` ? `game__content--wide` : ``}">
+          ${[...this.levels[this.initialData.level].options].map((option, index) => `
             <div class="game__option">
               <img src="${option.src}" alt="Option ${index + 1}">
               <label class="game__answer game__answer--photo">
@@ -46,9 +46,9 @@ export default class GameView extends AbstractView {
       `;
     }
     return `
-      <p class="game__task">${this.level[this.initialData.level].title}</p>
-      <form class="game__content ${this.level[this.initialData.level].type === `oneOfThree` ? `game__content--triple` : ``}">
-        ${[...this.level[this.initialData.level].options].map((option, index) => `
+      <p class="game__task">${this.levels[this.initialData.level].title}</p>
+      <form class="game__content ${this.levels[this.initialData.level].type === `oneOfThree` ? `game__content--triple` : ``}">
+        ${[...this.levels[this.initialData.level].options].map((option, index) => `
           <div class="game__option"><img src="${option.src}" alt="Option ${index + 1}" data-answer="${option.labels[0].value}"></div>
         `).join(``)}
       </form>
@@ -61,7 +61,7 @@ export default class GameView extends AbstractView {
   setStats() {
     const stats = this.element.querySelector(`.stats`);
     const data = this.initialData;
-    [...this.level].map((el, index) => {
+    [...this.levels].map((el, index) => {
       const element = document.createElement(`li`);
       if (data.answers[index]) {
         if (data.answers[index].time === `normal` && data.answers[index].answer) {
@@ -79,13 +79,13 @@ export default class GameView extends AbstractView {
   setSizeImages() {
     const variants = this.element.querySelectorAll(`.game__option`);
     const frame = getFrame(variants[0]);
-    setImagesSize(frame, this.element.querySelectorAll(`.game img`), this.level[this.initialData.level]);
+    setImagesSize(frame, this.element.querySelectorAll(`.game img`), this.levels[this.initialData.level]);
   }
 
   bind() {
     const variants = this.element.querySelectorAll(`.game__option`);
 
-    if (this.level[this.initialData.level].type === `twoOfTwo`) {
+    if (this.levels[this.initialData.level].type === `twoOfTwo`) {
       const radioElements = this.element.querySelectorAll(`.game__content .visually-hidden`);
       radioElements.forEach((radio) => {
         radio.addEventListener(`change`, ()=> {
@@ -95,7 +95,7 @@ export default class GameView extends AbstractView {
           }
         });
       });
-    } else if (this.level[this.initialData.level].type === `oneOfOne`) {
+    } else if (this.levels[this.initialData.level].type === `oneOfOne`) {
       const nextButtons = this.element.querySelectorAll(`.game__answer`);
       nextButtons.forEach((button) => {
         button.addEventListener(`click`, (event)=> {
