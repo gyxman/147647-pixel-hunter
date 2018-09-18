@@ -33,9 +33,9 @@ export const getFrame = (element) => {
 };
 
 export const setImagesSize = (frame, images, data) => {
-  images.forEach((img, index) => {
-    img.setAttribute(`width`, resize(frame, {'width': data.answers[index].width, 'height': data.answers[index].height}).width);
-    img.setAttribute(`height`, resize(frame, {'width': data.answers[index].width, 'height': data.answers[index].height}).height);
+  images.forEach((image, index) => {
+    image.setAttribute(`width`, resize(frame, {'width': data.answers[index].width, 'height': data.answers[index].height}).width);
+    image.setAttribute(`height`, resize(frame, {'width': data.answers[index].width, 'height': data.answers[index].height}).height);
   });
 };
 

@@ -1,8 +1,8 @@
 export const countPonts = (game, array) => {
-  let countCurrentAnswers = array.filter((elem) => elem.answer);
-  let countFastAnswers = array.filter((elem) => elem.time === `fast`);
-  let countSlowAnswers = array.filter((elem) => elem.time === `slow`);
-  let countLifes = game.lives - array.filter((elem) => !elem.answer).length;
+  let countCurrentAnswers = array.filter((item) => item.answer);
+  let countFastAnswers = array.filter((item) => item.time === `fast`);
+  let countSlowAnswers = array.filter((item) => item.time === `slow`);
+  let countLifes = game.lives - array.filter((item) => !item.answer).length;
   if (array.length < game.countQuestion) {
     return -1;
   }

@@ -26,14 +26,14 @@ export default class ConfirmView extends AbstractView {
     });
 
     const cancelButton = this.element.querySelector(`.modal__btn:last-child`);
-    cancelButton.addEventListener(`click`, (e) => {
-      e.preventDefault();
+    cancelButton.addEventListener(`click`, (event) => {
+      event.preventDefault();
       this.onClose();
     });
 
     const okButton = this.element.querySelector(`.modal__btn:first-child`);
-    okButton.addEventListener(`click`, (e) => {
-      e.preventDefault();
+    okButton.addEventListener(`click`, (event) => {
+      event.preventDefault();
       this.onResetGame();
     });
   }

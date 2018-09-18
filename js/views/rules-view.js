@@ -41,8 +41,8 @@ export default class RulesView extends AbstractView {
       }
     });
 
-    form.addEventListener(`submit`, (e) => {
-      e.preventDefault();
+    form.addEventListener(`submit`, (event) => {
+      event.preventDefault();
       const userName = inputName.value;
       this.onClick(userName);
     });

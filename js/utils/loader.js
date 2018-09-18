@@ -13,7 +13,7 @@ const checkStatus = (response) => {
   }
 };
 
-const getJSON = (res) => res.json();
+const getJSON = (response) => response.json();
 
 export default class Loader {
   static loadData() {
