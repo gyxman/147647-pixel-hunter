@@ -17,6 +17,12 @@ const getSlowAnswers = (data) => {
   return answers.reduce((sum, item) => sum + item);
 };
 
+const getName = (userName) => {
+  const nameElement = document.createElement(`div`);
+  nameElement.textContent = userName;
+  return nameElement;
+};
+
 export default class StatsView extends AbstractView {
   constructor() {
     super();
@@ -41,7 +47,7 @@ export default class StatsView extends AbstractView {
       <h2 class="result__title">${this.scores[this.last].lives ? `Победа!` : `Поражение!`}</h2>
       <table class="result__table">
         <tr>
-        <td class="result__number">${this.userName}</td>
+        <td class="result__number">${getName(this.userName)}</td>
         <td colspan="2">
         <ul class="stats">
         ${(this.scores[this.last].answers).map((answer) => `
