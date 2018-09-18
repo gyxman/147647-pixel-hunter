@@ -1,6 +1,6 @@
-import getHeader from '../parts/header';
 import AbstractView from './abstract-view';
 import checkAnswerType from '../utils/check-answer-type';
+import HeaderView from './header-view';
 
 const rightAnswers = (data) => {
   const array = data.map((item) => item !== `wrong` ? 1 : 0);
@@ -18,11 +18,14 @@ const slowAnswers = (data) => {
 };
 
 export default class StatsView extends AbstractView {
+  constructor() {
+    super();
+    this.header = new HeaderView();
+  }
+
   get template() {
     return `
-      <header class="header">
-        ${getHeader()}
-      </header>
+      ${this.header.template}
       <section class="result">
         <div class="end">
           <div class="scoreboard">Scoreboard is loading...</div>

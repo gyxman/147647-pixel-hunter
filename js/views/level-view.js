@@ -67,11 +67,9 @@ export default class LevelView extends AbstractView {
   }
 
   setSizeImages() {
-    setTimeout(() => {
-      const variants = this.element.querySelectorAll(`.game__option`);
-      const frame = getFrame(variants[0]);
-      setImagesSize(frame, this.element.querySelectorAll(`.game img`), this.level[this.initialData.level]);
-    }, 0);
+    const variants = this.element.querySelectorAll(`.game__option`);
+    const frame = getFrame(variants[0]);
+    setImagesSize(frame, this.element.querySelectorAll(`.game img`), this.level[this.initialData.level]);
   }
 
   highlightRightAnswer() {

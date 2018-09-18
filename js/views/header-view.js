@@ -1,4 +1,5 @@
 import AbstractView from './abstract-view';
+import {INITIAL_GAME} from '../data/initial-data';
 
 const headerMain = `
   <button class="back">
@@ -12,10 +13,10 @@ const headerMain = `
   </button>
 `;
 
-const headerEnhanced = (data) => `
+const headerEnhanced = (data, gameData) => `
   <div class="game__timer">${data.remainingTime}</div>
   <div class="game__lives">
-  ${new Array(3 - data.lives)
+  ${new Array(gameData.lives - data.lives)
   .fill(`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`)
     .join(``)}
   ${new Array(data.lives)
@@ -28,13 +29,14 @@ export default class HeaderView extends AbstractView {
   constructor(initialData) {
     super();
     this.initialData = initialData;
+    this.gameData = INITIAL_GAME;
   }
 
   get template() {
     return `
       <header class="header">
         ${headerMain}
-        ${this.initialData ? headerEnhanced(this.initialData) : ``}
+        ${this.initialData ? headerEnhanced(this.initialData, this.gameData) : ``}
       </header>
     `;
   }
