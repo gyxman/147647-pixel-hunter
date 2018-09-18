@@ -13,7 +13,7 @@ const headerMain = `
   </button>
 `;
 
-const headerEnhanced = (data, gameData) => `
+const getHeaderEnhanced = (data, gameData) => `
   <div class="game__timer">${data.remainingTime}</div>
   <div class="game__lives">
   ${new Array(gameData.lives - data.lives)
@@ -36,7 +36,7 @@ export default class HeaderView extends AbstractView {
     return `
       <header class="header">
         ${headerMain}
-        ${this.initialData ? headerEnhanced(this.initialData, this.gameData) : ``}
+        ${this.initialData ? getHeaderEnhanced(this.initialData, this.gameData) : ``}
       </header>
     `;
   }

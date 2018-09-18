@@ -13,15 +13,15 @@ const checkStatus = (response) => {
   }
 };
 
-const toJSON = (res) => res.json();
+const getJSON = (res) => res.json();
 
 export default class Loader {
   static loadData() {
-    return fetch(`${SERVER_URL}/questions`).then(checkStatus).then(toJSON).then(adaptServerData);
+    return fetch(`${SERVER_URL}/questions`).then(checkStatus).then(getJSON).then(adaptServerData);
   }
 
   static loadResults(name = DEFAULT_NAME) {
-    return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`).then(checkStatus).then(toJSON);
+    return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`).then(checkStatus).then(getJSON);
   }
 
   static saveResults(answers, lives, name = DEFAULT_NAME) {

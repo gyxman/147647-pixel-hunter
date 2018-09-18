@@ -1,7 +1,7 @@
 import footerData from '../data/footer-data';
 import {getElementFromTemplate} from '../utils/util';
 
-const template = (data) => `
+const getTemplate = (data) => `
 <a href="https://htmlacademy.ru" class="social-link">
   <span class="visually-hidden">HTML Academy</span>
   <svg class="icon" width="108" height="37" viewBox="0 0 108 37" fill="#000000">
@@ -37,6 +37,6 @@ const template = (data) => `
 </div>
 `;
 
-const footerElement = getElementFromTemplate(template(footerData), undefined, `footer__container`);
+const footerElement = getElementFromTemplate(getTemplate(footerData), undefined, `footer__container`);
 
 export default footerElement;
