@@ -53,24 +53,22 @@ export default class GameScreen {
   }
 
   updateHeader() {
-    const header = new HeaderView(this.model.state);
-    this.root.replaceChild(header.element, this.header.element);
-    this.header = header;
-    this.header.onBack = () => this.onBack();
     this.timerElement = this.header.element.querySelector(`.game__timer`);
+    this.timerElement.innerHTML = this.model.state.remainingTime;
   }
 
   changeLevel() {
-    this.updateHeader();
-
+    const header = new HeaderView(this.model.state);
     const level = new LevelView(this.model.levelsData, this.model.state);
-    this.changeContentView(level);
+    this.changeContentView(level, header);
     this.startGame();
   }
 
-  changeContentView(view) {
-    this.root.replaceChild(view.element, this.content.element);
-    this.content = view;
+  changeContentView(level, header) {
+    this.root.replaceChild(header.element, this.header.element);
+    this.root.replaceChild(level.element, this.content.element);
+    this.header = header;
+    this.content = level;
   }
 
   onAnswer(answers = false) {
