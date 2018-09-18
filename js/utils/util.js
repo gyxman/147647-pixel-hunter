@@ -1,6 +1,6 @@
 import resize from './resize';
 import checkAnswer from './check-answer';
-import getHeader from '../parts/header';
+import HeaderView from '../views/header-view';
 
 export const getElementFromTemplate = (template, tagName = `div`, tagClass) => {
   const wrapper = document.createElement(tagName);
@@ -59,8 +59,9 @@ export const saveResult = (data, game, array, time) => {
 
 export const updateHeader = (initialData) => {
   const header = document.querySelector(`.header`);
-  header.innerHTML = ``;
-  header.innerHTML = `${getHeader(initialData)}`;
+  header.remove();
+  const newHeader = new HeaderView(initialData);
+  mainElement.insertAdjacentHTML(`afterBegin`, newHeader.element);
 };
 
 export const tick = (game) => {
