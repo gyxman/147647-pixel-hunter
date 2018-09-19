@@ -15,8 +15,6 @@ export default class GameScreen {
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
 
-    this.timerElement = this.header.element.querySelector(`.game__timer`);
-
     this._interval = null;
   }
 
@@ -71,8 +69,7 @@ export default class GameScreen {
   }
 
   onAnswer(answers = false) {
-    const time = this.timerElement.innerHTML;
-    this.model.onAnswer(answers, time);
+    this.model.onAnswer(answers, this.model.state.remainingTime);
 
     this.resetTimer();
     this.updateHeader();
