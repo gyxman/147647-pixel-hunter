@@ -9,4 +9,12 @@ export const INITIAL_GAME = Object.freeze({
   fastAnswerPoints: 50,
   slowAnswerPoints: -50,
   lifePoints: 50,
+  countRightAnswers: 0,
+  countFastAnswers: 0,
+  countSlowAnswers: 0,
+  countRightPoints: 0,
+  countFastPoints: 0,
+  countSlowPoints: 0,
+  countLivesPoints: 0,
+  countTotalPoints: 0,
 });

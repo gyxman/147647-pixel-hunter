@@ -1,26 +1,10 @@
 import AbstractView from './abstract-view';
 import checkAnswerType from '../utils/check-answer-type';
 import HeaderView from './header-view';
-
-const getRightAnswers = (data) => {
-  const answers = data.map((item) => item !== `wrong` ? 1 : 0);
-  return answers.reduce((sum, item) => sum + item);
-};
-
-const getFastAnswers = (data) => {
-  const answers = data.map((item) => item === `fast` ? 1 : 0);
-  return answers.reduce((sum, item) => sum + item);
-};
-
-const getSlowAnswers = (data) => {
-  const answers = data.map((item) => item === `slow` ? 1 : 0);
-  return answers.reduce((sum, item) => sum + item);
-};
+import {INITIAL_GAME} from '../data/initial-data';
 
 const getName = (userName) => {
-  const nameElement = document.createElement(`div`);
-  nameElement.textContent = userName;
-  return nameElement;
+  return userName.toString();
 };
 
 export default class StatsView extends AbstractView {
@@ -55,34 +39,34 @@ export default class StatsView extends AbstractView {
           `).join(``)}
             </ul>
           </td>
-            <td class="result__points">× 100</td>
+            <td class="result__points">× ${INITIAL_GAME.currentAnswerPoints}</td>
             <td class="result__total">
-              ${this.getRightAnswers * 100}
+              ${this.scores[this.last].countRightPoints}
             </td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${this.getFastAnswers} <span class="stats__result stats__result--fast"></span></td>
-          <td class="result__points">× 50</td>
-          <td class="result__total">${this.getFastAnswers * 50}</td>
+          <td class="result__extra">${this.scores[this.last].countFastAnswers} <span class="stats__result stats__result--fast"></span></td>
+          <td class="result__points">× ${INITIAL_GAME.fastAnswerPoints}</td>
+          <td class="result__total">${this.scores[this.last].countFastPoints}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Бонус за жизни:</td>
           <td class="result__extra">${this.scores[this.last].lives} <span class="stats__result stats__result--alive"></span></td>
-          <td class="result__points">× 50</td>
-          <td class="result__total">${this.scores[this.last].lives * 50}</td>
+          <td class="result__points">× ${INITIAL_GAME.lifePoints}</td>
+          <td class="result__total">${this.scores[this.last].countLivesPoints}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${this.getSlowAnswers} <span class="stats__result stats__result--slow"></span></td>
-          <td class="result__points">× 50</td>
-          <td class="result__total">${this.getSlowAnswers * 50}</td>
+          <td class="result__extra">${this.scores[this.last].countSlowAnswers} <span class="stats__result stats__result--slow"></span></td>
+          <td class="result__points">× ${INITIAL_GAME.slowAnswerPoints}</td>
+          <td class="result__total">${this.scores[this.last].countSlowPoints}</td>
         </tr>
         <tr>
-          <td colspan="5" class="result__total  result__total--final">${this.getRightAnswers * 100 + this.scores[this.last].lives * 50 + this.getFastAnswers * 50 - this.getSlowAnswers * 50}</td>
+          <td colspan="5" class="result__total  result__total--final">${this.scores[this.last].countTotalPoints}</td>
         </tr>
       </table>
     `;
@@ -108,9 +92,6 @@ export default class StatsView extends AbstractView {
     this.scores = scores;
     this.last = this.scores.length - 1;
     this.scoresShort = this.scores.slice(0, this.scores.length - 1);
-    this.getRightAnswers = getRightAnswers(scores[this.last].answers);
-    this.getFastAnswers = getFastAnswers(scores[this.last].answers);
-    this.getSlowAnswers = getSlowAnswers(scores[this.last].answers);
 
     this._scoreBoardContainer.innerHTML = `
       ${this.stepsTemplate}
@@ -125,7 +106,7 @@ export default class StatsView extends AbstractView {
                 `).join(``)}
               </ul>
             </td>
-            <td class="result__total">${getRightAnswers(scores[i].answers) * 100 + this.scores[i].lives * 50 + getFastAnswers(scores[i].answers) * 50 - getSlowAnswers(scores[i].answers) * 50}</td>
+            <td class="result__total">${this.scores[i].countTotalPoints}</td>
             <td class="result__total  result__total--final">${this.scores[i].lives ? `Победа!` : `Поражение!`}</td>
           </tr>
         </table>  

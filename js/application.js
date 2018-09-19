@@ -77,7 +77,7 @@ export default class Application {
     const statsScreen = new StatsView();
     changeScreen(statsScreen.element);
 
-    Loader.saveResults(model.answers, model.lives, userName).
+    Loader.saveResults(model, userName).
     then(() => Loader.loadResults(userName)).
     then((data) => statsScreen.showScores(data, userName)).
     catch(Application.showError);

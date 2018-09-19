@@ -1,9 +1,10 @@
 import {adaptServerData} from '../data/data-adapter.js';
+import {calculateResults} from './util';
 
 const SERVER_URL = `https://es.dump.academy/pixel-hunter`;
 
 const DEFAULT_NAME = `Безымянный`;
-const APP_ID = 1071991;
+const APP_ID = 2071991;
 
 const checkStatus = (response) => {
   if (response.ok) {
@@ -24,8 +25,11 @@ export default class Loader {
     return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`).then(checkStatus).then(getJSON);
   }
 
-  static saveResults(answers, lives, name = DEFAULT_NAME) {
-    const data = Object.assign({}, {answers}, {lives});
+  static saveResults(game, name = DEFAULT_NAME) {
+    const answers = game.answers;
+    const lives = game.lives;
+    const result = calculateResults(game);
+    const data = Object.assign({}, {answers}, {lives}, {countRightAnswers: result.countRightAnswers}, {countFastAnswers: result.countFastAnswers}, {countSlowAnswers: result.countSlowAnswers}, {countRightPoints: result.countRightPoints}, {countFastPoints: result.countFastPoints}, {countSlowPoints: result.countSlowPoints}, {countLivesPoints: result.countLivesPoints}, {countTotalPoints: result.countTotalPoints});
     const requestSettings = {
       body: JSON.stringify(data),
       headers: {
