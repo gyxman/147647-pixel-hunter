@@ -53,8 +53,7 @@ export default class GameScreen {
   }
 
   updateHeader() {
-    this.timerElement = this.header.element.querySelector(`.game__timer`);
-    this.timerElement.innerHTML = this.model.state.remainingTime;
+    this.header.setTime(this.model.state.remainingTime);
   }
 
   changeLevel() {

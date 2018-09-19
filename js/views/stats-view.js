@@ -3,10 +3,6 @@ import checkAnswerType from '../utils/check-answer-type';
 import HeaderView from './header-view';
 import {INITIAL_GAME} from '../data/initial-data';
 
-const getName = (userName) => {
-  return userName.toString();
-};
-
 export default class StatsView extends AbstractView {
   constructor() {
     super();
@@ -31,7 +27,7 @@ export default class StatsView extends AbstractView {
       <h2 class="result__title">${this.scores[this.last].lives ? `Победа!` : `Поражение!`}</h2>
       <table class="result__table">
         <tr>
-        <td class="result__number">${getName(this.userName)}</td>
+        <td class="result__number result__number--name"></td>
         <td colspan="2">
         <ul class="stats">
         ${(this.scores[this.last].answers).map((answer) => `
@@ -112,6 +108,8 @@ export default class StatsView extends AbstractView {
         </table>  
       `).join(``)}
     `;
+
+    this._scoreBoardContainer.querySelector(`.result__number--name`).textContent = this.userName;
   }
 
   onRepeat() {}

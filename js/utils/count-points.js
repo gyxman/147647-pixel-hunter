@@ -1,10 +1,26 @@
+// эта функция теперь используется только для тестов
 export const countPonts = (game, array) => {
-  const countCurrentAnswers = array.filter((item) => item.answer);
-  const countFastAnswers = array.filter((item) => item.time === `fast`);
-  const countSlowAnswers = array.filter((item) => item.time === `slow`);
-  const countLifes = game.lives - array.filter((item) => !item.answer).length;
+  const counts = {};
+  counts.currentAnswers = 0;
+  counts.fastAnswers = 0;
+  counts.slowAnswers = 0;
+  counts.lifes = game.lives;
+
+  array.forEach((item) => {
+    if (item.answer) {
+      counts.currentAnswers += 1;
+      if (item.time === `fast`) {
+        counts.fastAnswers += 1;
+      } else if (item.time === `slow`) {
+        counts.slowAnswers += 1;
+      }
+    } else {
+      counts.lifes -= 1;
+    }
+  });
+
   if (array.length < game.countQuestion) {
     return -1;
   }
-  return countCurrentAnswers.length * game.currentAnswerPoints + countFastAnswers.length * game.fastAnswerPoints + countSlowAnswers.length * game.slowAnswerPoints + countLifes * game.lifePoints;
+  return counts.currentAnswers * game.currentAnswerPoints + counts.fastAnswers * game.fastAnswerPoints + counts.slowAnswers * game.slowAnswerPoints + counts.lifes * game.lifePoints;
 };

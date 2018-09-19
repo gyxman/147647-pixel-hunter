@@ -41,9 +41,22 @@ export const setImagesSize = (frame, images, data) => {
 
 export const calculateResults = (data)=> {
   const result = {};
-  result.countRightAnswers = data.answers.map((item) => item !== `wrong` ? 1 : 0).reduce((sum, item) => sum + item);
-  result.countFastAnswers = data.answers.map((item) => item === `fast` ? 1 : 0).reduce((sum, item) => sum + item);
-  result.countSlowAnswers = data.answers.map((item) => item === `slow` ? 1 : 0).reduce((sum, item) => sum + item);
+  result.countRightAnswers = 0;
+  result.countFastAnswers = 0;
+  result.countSlowAnswers = 0;
+
+  data.answers.forEach((item) => {
+    if (item === `fast`) {
+      result.countRightAnswers += 1;
+      result.countFastAnswers += 1;
+    } else if (item === `slow`) {
+      result.countRightAnswers += 1;
+      result.countSlowAnswers += 1;
+    } else if (item === `correct`) {
+      result.countRightAnswers += 1;
+    }
+  });
+
   result.countRightPoints = result.countRightAnswers * data.currentAnswerPoints;
   result.countFastPoints = result.countFastAnswers * data.fastAnswerPoints;
   result.countSlowPoints = result.countSlowAnswers * data.slowAnswerPoints;
