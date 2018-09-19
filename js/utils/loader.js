@@ -29,7 +29,7 @@ export default class Loader {
     const answers = game.answers;
     const lives = game.lives;
     const result = calculateResults(game);
-    const data = Object.assign({}, {answers}, {lives}, {...result});
+    const data = Object.assign({}, {answers}, {lives}, {countRightAnswers: result.countRightAnswers}, {countFastAnswers: result.countFastAnswers}, {countSlowAnswers: result.countSlowAnswers}, {countRightPoints: result.countRightPoints}, {countFastPoints: result.countFastPoints}, {countSlowPoints: result.countSlowPoints}, {countLivesPoints: result.countLivesPoints}, {countTotalPoints: result.countTotalPoints});
     const requestSettings = {
       body: JSON.stringify(data),
       headers: {

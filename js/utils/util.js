@@ -40,10 +40,11 @@ export const setImagesSize = (frame, images, data) => {
 };
 
 export const calculateResults = (data)=> {
-  const result = {};
-  result.countRightAnswers = 0;
-  result.countFastAnswers = 0;
-  result.countSlowAnswers = 0;
+  const result = {
+    countRightAnswers: 0,
+    countFastAnswers: 0,
+    countSlowAnswers: 0,
+  };
 
   data.answers.forEach((item) => {
     if (item === `fast`) {

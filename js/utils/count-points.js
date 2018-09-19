@@ -1,10 +1,11 @@
 // эта функция теперь используется только для тестов
 export const countPonts = (game, array) => {
-  const counts = {};
-  counts.currentAnswers = 0;
-  counts.fastAnswers = 0;
-  counts.slowAnswers = 0;
-  counts.lifes = game.lives;
+  const counts = {
+    currentAnswers: 0,
+    fastAnswers: 0,
+    slowAnswers: 0,
+    lifes: game.lives,
+  };
 
   array.forEach((item) => {
     if (item.answer) {
