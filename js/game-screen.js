@@ -69,15 +69,14 @@ export default class GameScreen {
   }
 
   onAnswer(answers = false) {
-    this.model.onAnswer(answers, this.model.state.remainingTime);
-
-    this.resetTimer();
-    this.updateHeader();
-
     if (this.model.state.lives === 0) {
       this.onEndGame(this.model.state);
       return;
     }
+
+    this.model.onAnswer(answers, this.model.state.remainingTime);
+    this.resetTimer();
+    this.updateHeader();
 
     if (this.model.state.level < this.model.levelsData.length) {
       this.changeLevel();
