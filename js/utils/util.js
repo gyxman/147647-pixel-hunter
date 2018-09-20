@@ -81,7 +81,7 @@ export const saveResult = (data, game, answers, time) => {
     answer = `wrong`;
   }
   const newAnswers = [...game.answers, answer];
-  return Object.assign({}, game, {newAnswers});
+  return Object.assign({}, game, {answers: newAnswers});
 };
 
 export const tick = (game) => {
