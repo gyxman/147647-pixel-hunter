@@ -42,20 +42,19 @@ export default class HeaderView extends AbstractView {
   }
 
   setTime(time) {
-    const timerElement = this.element.querySelector(`.game__timer`);
-    timerElement.innerHTML = time;
+    this.timerElement.innerHTML = time;
   }
 
   blink(blink) {
     if (blink) {
-      this.timer.classList.add(`game__timer--blink`);
+      this.timerElement.classList.add(`game__timer--blink`);
     } else {
-      this.timer.classList.remove(`game__timer--blink`);
+      this.timerElement.classList.remove(`game__timer--blink`);
     }
   }
 
   bind() {
-    this.timer = this.element.querySelector(`.game__timer`);
+    this.timerElement = this.element.querySelector(`.game__timer`);
     const backButton = this.element.querySelector(`.back`);
 
     backButton.addEventListener(`click`, () => {
