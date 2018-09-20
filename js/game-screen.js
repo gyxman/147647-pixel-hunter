@@ -1,4 +1,3 @@
-import Application from './application';
 import HeaderView from './views/header-view';
 import LevelView from './views/level-view';
 
@@ -46,10 +45,6 @@ export default class GameScreen {
     this.model.resetTimer();
   }
 
-  exit() {
-    Application.showStats(this.model);
-  }
-
   updateHeader() {
     this.header.setTime(this.model.state.remainingTime);
   }
@@ -71,6 +66,7 @@ export default class GameScreen {
   onAnswer(answers = false) {
     if (this.model.state.lives === 0) {
       this.onEndGame(this.model.state);
+      this.resetTimer();
       return;
     }
 
