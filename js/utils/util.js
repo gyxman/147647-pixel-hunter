@@ -67,9 +67,9 @@ export const calculateResults = (data)=> {
   return result;
 };
 
-export const saveResult = (data, game, array, time) => {
+export const saveResult = (data, game, answers, time) => {
   let answer;
-  if (checkAnswer(data, game, array)) {
+  if (checkAnswer(data, game, answers)) {
     if (time > 20) {
       answer = `fast`;
     } else if (time < 10) {
@@ -80,8 +80,8 @@ export const saveResult = (data, game, array, time) => {
   } else {
     answer = `wrong`;
   }
-  const answers = [...game.answers, answer];
-  return Object.assign({}, game, {answers});
+  const newAnswers = [...game.answers, answer];
+  return Object.assign({}, game, {newAnswers});
 };
 
 export const tick = (game) => {

@@ -58,11 +58,11 @@ export default class LevelView extends AbstractView {
   setStats() {
     const stats = this.element.querySelector(`.stats`);
     const data = this.initialData;
-    [...this.level].map((el, index) => {
-      const element = document.createElement(`li`);
+    [...this.level].map((element, index) => {
+      const item = document.createElement(`li`);
       const additionalClass = checkAnswerType(data.answers[index]);
-      element.classList.add(`stats__result`, additionalClass);
-      stats.appendChild(element);
+      item.classList.add(`stats__result`, additionalClass);
+      stats.appendChild(item);
     });
   }
 

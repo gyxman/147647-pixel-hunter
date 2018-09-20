@@ -1,5 +1,5 @@
 // эта функция теперь используется только для тестов
-export const countPonts = (game, array) => {
+export const countPonts = (game, answers) => {
   const counts = {
     currentAnswers: 0,
     fastAnswers: 0,
@@ -7,7 +7,7 @@ export const countPonts = (game, array) => {
     lifes: game.lives,
   };
 
-  array.forEach((item) => {
+  answers.forEach((item) => {
     if (item.answer) {
       counts.currentAnswers += 1;
       if (item.time === `fast`) {
@@ -20,7 +20,7 @@ export const countPonts = (game, array) => {
     }
   });
 
-  if (array.length < game.countQuestion) {
+  if (answers.length < game.countQuestion) {
     return -1;
   }
   return counts.currentAnswers * game.currentAnswerPoints + counts.fastAnswers * game.fastAnswerPoints + counts.slowAnswers * game.slowAnswerPoints + counts.lifes * game.lifePoints;

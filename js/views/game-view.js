@@ -61,18 +61,18 @@ export default class GameView extends AbstractView {
   setStats() {
     const stats = this.element.querySelector(`.stats`);
     const data = this.initialData;
-    [...this.levels].map((el, index) => {
-      const element = document.createElement(`li`);
+    [...this.levels].map((element, index) => {
+      const item = document.createElement(`li`);
       if (data.answers[index]) {
         if (data.answers[index].time === `normal` && data.answers[index].answer) {
-          element.classList.add(`stats__result`, `stats__result--correct`);
+          item.classList.add(`stats__result`, `stats__result--correct`);
         } else if (data.answers[index].time === `normal` && !data.answers[index].answer) {
-          element.classList.add(`stats__result`, `stats__result--wrong`);
+          item.classList.add(`stats__result`, `stats__result--wrong`);
         }
       } else {
-        element.classList.add(`stats__result`, `stats__result--unknown`);
+        item.classList.add(`stats__result`, `stats__result--unknown`);
       }
-      stats.appendChild(element);
+      stats.appendChild(item);
     });
   }
 
